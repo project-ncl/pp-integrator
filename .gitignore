@@ -37,3 +37,8 @@ release.properties
 # Quarkus
 lsp/
 generated-sources/
+
+# Maven Wrapper
+.mvn/
+mvnw
+mvnw.cmd
