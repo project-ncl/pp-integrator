@@ -63,8 +63,8 @@
     <version.com.github.ekryd.sortpom>2.11.0</version.com.github.ekryd.sortpom>
     <version.com.github.spotbugs>4.0.0</version.com.github.spotbugs>
     <version.com.mycila>3.0</version.com.mycila>
-    <version.com.puppycrawl.tools>8.31</version.com.puppycrawl.tools>
-    <version.io.quarkus>1.4.1.Final</version.io.quarkus>
+    <version.com.puppycrawl.tools>8.32</version.com.puppycrawl.tools>
+    <version.io.quarkus>1.4.2.Final</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.11.0</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.4.1</version.net.revelc.code.impsort-maven-plugin>
     <version.org.apache.maven.plugins.maven-assembly-plugin>3.2.0</version.org.apache.maven.plugins.maven-assembly-plugin>
@@ -78,6 +78,7 @@
     <version.org.codehaus.mojo.buildnumber-maven-plugin>1.4</version.org.codehaus.mojo.buildnumber-maven-plugin>
     <version.org.codehaus.mojo.taglist-maven-plugin>2.4</version.org.codehaus.mojo.taglist-maven-plugin>
     <version.org.codehaus.mojo.versions-maven-plugin>2.7</version.org.codehaus.mojo.versions-maven-plugin>
+    <version.org.ec4j.maven.editorconfig-maven-plugin>0.0.11</version.org.ec4j.maven.editorconfig-maven-plugin>
   </properties>
 
   <dependencyManagement>
@@ -301,6 +302,16 @@
           <artifactId>versions-maven-plugin</artifactId>
           <version>${version.org.codehaus.mojo.versions-maven-plugin}</version>
         </plugin>
+        <plugin>
+          <groupId>org.ec4j.maven</groupId>
+          <artifactId>editorconfig-maven-plugin</artifactId>
+          <version>${version.org.ec4j.maven.editorconfig-maven-plugin}</version>
+          <configuration>
+            <excludes>
+              <exclude></exclude>
+            </excludes>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -437,6 +448,17 @@
               <goal>create</goal>
             </goals>
             <phase>validate</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.ec4j.maven</groupId>
+        <artifactId>editorconfig-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

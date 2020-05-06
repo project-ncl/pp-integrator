@@ -102,5 +102,13 @@
     <module name="ArrayTypeStyle"/>
     <!--<module name="FinalParameters"/>-->
     <module name="UpperEll"/>
+
+    <module name="ImportOrder">
+      <property name="groups" value="/^java\./,javax,org,com"/>
+      <property name="ordered" value="true"/>
+      <property name="separated" value="true"/>
+      <property name="option" value="top"/>
+      <property name="sortStaticImportsAlphabetically" value="true"/>
+    </module>
   </module>
 </module>
