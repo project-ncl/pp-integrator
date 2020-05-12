@@ -67,7 +67,6 @@
     <version.io.quarkus>1.4.2.Final</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.11.0</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.4.1</version.net.revelc.code.impsort-maven-plugin>
-    <version.org.apache.maven.plugins.maven-assembly-plugin>3.3.0</version.org.apache.maven.plugins.maven-assembly-plugin>
     <version.org.apache.maven.plugins.maven-checkstyle-plugin>3.1.1</version.org.apache.maven.plugins.maven-checkstyle-plugin>
     <version.org.apache.maven.plugins.maven-compiler-plugin>3.8.1-jboss-1</version.org.apache.maven.plugins.maven-compiler-plugin>
     <version.org.apache.maven.plugins.maven-javadoc-plugin>3.2.0</version.org.apache.maven.plugins.maven-javadoc-plugin>
@@ -228,11 +227,6 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>${version.org.apache.maven.plugins.maven-assembly-plugin}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>${version.org.apache.maven.plugins.maven-checkstyle-plugin}</version>
           <configuration>
@@ -388,25 +382,6 @@
             <goals>
               <goal>validate</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <finalName>${project.artifactId}</finalName>
-          <descriptors>
-            <descriptor>src/assembly/assembly.xml</descriptor>
-          </descriptors>
-        </configuration>
-        <executions>
-          <execution>
-            <id>create-quarkus-zip</id>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <phase>package</phase>
           </execution>
         </executions>
       </plugin>
