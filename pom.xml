@@ -64,7 +64,7 @@
     <version.com.github.spotbugs>4.0.0</version.com.github.spotbugs>
     <version.com.mycila>3.0</version.com.mycila>
     <version.com.puppycrawl.tools>8.32</version.com.puppycrawl.tools>
-    <version.io.quarkus>1.4.2.Final</version.io.quarkus>
+    <version.io.quarkus>1.5.0.Final</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.11.0</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.4.1</version.net.revelc.code.impsort-maven-plugin>
     <version.org.apache.maven.plugins.maven-checkstyle-plugin>3.1.1</version.org.apache.maven.plugins.maven-checkstyle-plugin>
@@ -92,6 +92,10 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-cache</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-validator</artifactId>

@@ -23,22 +23,23 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.jboss.resteasy.annotations.cache.Cache;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
+
+import io.quarkus.cache.CacheResult;
 
 @Path("/phases")
 public interface PhaseService {
+    @CacheResult(cacheName = "phases-products")
     @GET
-    @Path("/products")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Path("products")
     @PermitAll
-    @Cache
+    @Produces(MediaType.TEXT_PLAIN)
     Response getProductPhase(@NotEmpty @QueryParam String shortname);
 
+    @CacheResult(cacheName = "phases-releases")
     @GET
-    @Path("/releases")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Path("releases")
     @PermitAll
-    @Cache
+    @Produces(MediaType.TEXT_PLAIN)
     Response getReleasePhase(@NotEmpty @QueryParam String shortname);
 }
