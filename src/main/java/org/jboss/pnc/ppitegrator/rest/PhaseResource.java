@@ -21,7 +21,6 @@ import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotEmpty;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -33,51 +32,58 @@ import org.jboss.pnc.ppitegrator.pp.model.Phase;
 import org.jboss.pnc.ppitegrator.pp.model.Product;
 import org.jboss.pnc.ppitegrator.pp.model.Release;
 import org.jboss.pnc.ppitegrator.pp.rest.ProductPagesService;
-import org.jboss.resteasy.annotations.cache.Cache;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
-@Path("/phases")
+import io.quarkus.cache.CacheResult;
+
 @ApplicationScoped
+@Path("/phases")
 public class PhaseResource implements PhaseService {
     @Inject
     @RestClient
     ProductPagesService productPagesService;
 
+    @CacheResult(cacheName = "phases-products")
     @GET
     @Path("products")
-    @Produces(MediaType.TEXT_PLAIN)
     @PermitAll
-    @Cache
+    @Produces(MediaType.TEXT_PLAIN)
     public Response getProductPhase(@NotEmpty @QueryParam String shortname) {
         Set<Product> products = productPagesService.getProductWithFields(shortname, "phase");
         int size = products.size();
 
         if (size != 1) {
-            throw new BadRequestException("Expected size 1, got size " + size);
+            return Response
+                    .status(
+                            Response.Status.BAD_REQUEST.getStatusCode(),
+                            "Expected to get exactly one product, but got " + size)
+                    .build();
         }
 
         Product product = products.iterator().next();
-
         Phase phase = Phase.fromValue(product.getPhase());
 
         return Response.ok(phase.getName()).build();
     }
 
+    @CacheResult(cacheName = "phases-releases")
     @GET
     @Path("releases")
-    @Produces(MediaType.TEXT_PLAIN)
     @PermitAll
-    @Cache
+    @Produces(MediaType.TEXT_PLAIN)
     public Response getReleasePhase(@NotEmpty @QueryParam String shortname) {
         Set<Release> releases = productPagesService.getRelease(shortname);
         int size = releases.size();
 
         if (size != 1) {
-            throw new BadRequestException("Expected size 1, got size " + size);
+            return Response
+                    .status(
+                            Response.Status.BAD_REQUEST.getStatusCode(),
+                            "Expected to get exactly one release, but got " + size)
+                    .build();
         }
 
         Release release = releases.iterator().next();
-
         Phase phase = Phase.fromValue(release.getPhase());
 
         return Response.ok(phase.getName()).build();
