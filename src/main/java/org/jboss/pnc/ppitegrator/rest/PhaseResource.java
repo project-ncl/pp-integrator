@@ -30,6 +30,8 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
 import org.jboss.pnc.ppitegrator.pp.model.Product;
@@ -46,6 +48,10 @@ public class PhaseResource implements PhaseService {
     @RestClient
     ProductPagesService productPagesService;
 
+    @Override
+    @Operation(description = "Get product phase")
+    @APIResponse(responseCode = "200", description = "Valid phase returned")
+    @APIResponse(responseCode = "404", description = "Did not find exactly one result")
     @Counted(name = "getProductPhaseCount", description = "How many product phase calls have been performed.")
     @Timed(
             name = "getProductPhaseTimer",
@@ -63,7 +69,7 @@ public class PhaseResource implements PhaseService {
         if (size != 1) {
             return Response
                     .status(
-                            Response.Status.BAD_REQUEST.getStatusCode(),
+                            Response.Status.NOT_FOUND.getStatusCode(),
                             "Expected to get exactly one product, but got " + size)
                     .build();
         }
@@ -74,6 +80,10 @@ public class PhaseResource implements PhaseService {
         return Response.ok(phase.getName()).build();
     }
 
+    @Override
+    @Operation(description = "Get release phase")
+    @APIResponse(responseCode = "200", description = "Valid phase returned")
+    @APIResponse(responseCode = "404", description = "Did not find exactly one result")
     @Counted(name = "getReleasePhaseCount", description = "How many release phase calls have been performed.")
     @Timed(
             name = "getReleasePhaseTimer",
@@ -91,7 +101,7 @@ public class PhaseResource implements PhaseService {
         if (size != 1) {
             return Response
                     .status(
-                            Response.Status.BAD_REQUEST.getStatusCode(),
+                            Response.Status.NOT_FOUND.getStatusCode(),
                             "Expected to get exactly one release, but got " + size)
                     .build();
         }

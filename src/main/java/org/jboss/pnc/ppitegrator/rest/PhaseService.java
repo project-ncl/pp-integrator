@@ -25,18 +25,14 @@ import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
-import io.quarkus.cache.CacheResult;
-
 @Path("/phases")
 public interface PhaseService {
-    @CacheResult(cacheName = "phases-products")
     @GET
     @Path("products")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     Response getProductPhase(@NotEmpty @QueryParam String shortname);
 
-    @CacheResult(cacheName = "phases-releases")
     @GET
     @Path("releases")
     @PermitAll
