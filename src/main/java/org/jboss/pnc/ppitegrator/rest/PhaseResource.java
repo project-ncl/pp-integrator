@@ -27,6 +27,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
 import org.jboss.pnc.ppitegrator.pp.model.Product;
@@ -43,6 +46,11 @@ public class PhaseResource implements PhaseService {
     @RestClient
     ProductPagesService productPagesService;
 
+    @Counted(name = "getProductPhaseCount", description = "How many product phase calls have been performed.")
+    @Timed(
+            name = "getProductPhaseTimer",
+            description = "How long it takes to get the product phase.",
+            unit = MetricUnits.MILLISECONDS)
     @CacheResult(cacheName = "phases-products")
     @GET
     @Path("products")
@@ -66,6 +74,11 @@ public class PhaseResource implements PhaseService {
         return Response.ok(phase.getName()).build();
     }
 
+    @Counted(name = "getReleasePhaseCount", description = "How many release phase calls have been performed.")
+    @Timed(
+            name = "getReleasePhaseTimer",
+            description = "How long it takes to get the release phase.",
+            unit = MetricUnits.MILLISECONDS)
     @CacheResult(cacheName = "phases-releases")
     @GET
     @Path("releases")
