@@ -114,6 +114,10 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-metrics</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
@@ -311,11 +315,6 @@
           <groupId>org.ec4j.maven</groupId>
           <artifactId>editorconfig-maven-plugin</artifactId>
           <version>${version.org.ec4j.maven.editorconfig-maven-plugin}</version>
-          <configuration>
-            <excludes>
-              <exclude></exclude>
-            </excludes>
-          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
