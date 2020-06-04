@@ -28,6 +28,10 @@ one of the phase names listed below in `text/plain` format:
 - Maintenance
 - Unsupported
 
+Additionally, the endpoints `/api/products` and `/api/releases` return
+sets of strings representing all product shortnames and all release
+shortnames, respectively.
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
