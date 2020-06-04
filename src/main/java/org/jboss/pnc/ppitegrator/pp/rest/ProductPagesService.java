@@ -35,6 +35,26 @@ public interface ProductPagesService {
     @GET
     @Path("products")
     @Produces(MediaType.APPLICATION_JSON)
+    Set<Product> getAllProducts(@QueryParam String fields);
+
+    @GET
+    @Path("products")
+    @Produces(MediaType.APPLICATION_JSON)
+    CompletionStage<Set<Product>> getAllProductsAsync(@QueryParam String fields);
+
+    @GET
+    @Path("releases")
+    @Produces(MediaType.APPLICATION_JSON)
+    Set<Release> getAllReleases(@QueryParam String fields);
+
+    @GET
+    @Path("releases")
+    @Produces(MediaType.APPLICATION_JSON)
+    CompletionStage<Set<Release>> getAllReleasesAsync(@QueryParam String fields);
+
+    @GET
+    @Path("products")
+    @Produces(MediaType.APPLICATION_JSON)
     Set<Product> getProduct(@NotEmpty @QueryParam String shortname);
 
     @GET

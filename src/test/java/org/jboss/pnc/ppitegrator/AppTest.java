@@ -16,7 +16,15 @@
 package org.jboss.pnc.ppitegrator;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -83,5 +91,47 @@ public class AppTest {
                 .asString();
 
         verifyPhase(name);
+    }
+
+    @Test
+    public void testProductsEndpoint() {
+        String[] prods = given().log()
+                .all()
+                .accept(MediaType.APPLICATION_JSON)
+                .when()
+                .get("/api/products")
+                .then()
+                .log()
+                .all()
+                .assertThat()
+                .statusCode(Response.Status.OK.getStatusCode())
+                .extract()
+                .as(String[].class);
+        Set<String> products = new LinkedHashSet<>(Arrays.asList(prods));
+
+        LOGGER.info("Products: {}", products);
+
+        assertThat(products, is(not(empty())));
+    }
+
+    @Test
+    public void testReleasesEndpoint() {
+        String[] rels = given().log()
+                .all()
+                .accept(MediaType.APPLICATION_JSON)
+                .when()
+                .get("/api/releases")
+                .then()
+                .log()
+                .all()
+                .assertThat()
+                .statusCode(Response.Status.OK.getStatusCode())
+                .extract()
+                .as(String[].class);
+        Set<String> releases = new LinkedHashSet<>(Arrays.asList(rels));
+
+        LOGGER.info("Releases: {}", releases);
+
+        assertThat(releases, is(not(empty())));
     }
 }

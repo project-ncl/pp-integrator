@@ -1,0 +1,110 @@
+<!--
+
+    Copyright (C) 2020 Red Hat, Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Pages Integrator</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $(function() {
+      const dropdown = $('#product-dropdown');
+      const product_phase = $('#product-phase');
+
+      dropdown.empty();
+      dropdown.append('<option selected="true" disabled>Select Product</option>');
+      dropdown.prop('selectedIndex', 0);
+
+      const dropdown2 = $('#release-dropdown');
+      const release_phase = $('#release-phase');
+
+      dropdown2.empty();
+
+      dropdown2.on('change', function() {
+        release_phase.html('');
+
+        if (dropdown2.val() == null) {
+          return;
+        }
+
+        $.get('/api/phases/releases?shortname=' + dropdown2.val(), null, function(success) {
+          release_phase.html(success);
+        });
+      });
+
+      // XXX
+      let releases;
+
+      $.getJSON('/api/releases', function(data) {
+        releases = data;
+      });
+
+      $.getJSON('/api/products', function(data) {
+        $.each(data, function(index, value) {
+          dropdown.append($('<option></option>').attr('value', value).text(value));
+        })
+      });
+
+      dropdown.on('change', function() {
+        product_phase.html('');
+        release_phase.html('');
+
+        dropdown2.empty();
+
+        if (dropdown.val() == null) {
+          return;
+        }
+
+        $.get('/api/phases/products?shortname=' + dropdown.val(), null, function(success) {
+          product_phase.html(success);
+
+          $.each(releases, function(index, value) {
+            if (value.startsWith(dropdown.val())) {
+              dropdown2.append($('<option></option>').attr('value', value).text(value));
+            }
+          });
+
+          if (dropdown2.val() == null) {
+            return;
+          }
+
+          $.get('/api/phases/releases?shortname=' + dropdown2.val(), null, function(success) {
+            release_phase.html(success);
+
+            return success;
+          },'text');
+
+          return success;
+        }, 'text');
+      });
+
+    });
+  </script>
+</head>
+<body>
+  <div>
+    <h2>Product Pages Integrator ${project.version}</h2>
+    <div>
+      <form>
+        <p>Product: <select id="product-dropdown"></select> Phase: <span id="product-phase"></span></p>
+        <p>Release: <select id="release-dropdown"></select> Phase: <span id="release-phase"></span></p>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
