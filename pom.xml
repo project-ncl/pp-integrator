@@ -63,7 +63,7 @@
     <version.com.github.ekryd.sortpom>2.11.0</version.com.github.ekryd.sortpom>
     <version.com.github.spotbugs>4.0.0</version.com.github.spotbugs>
     <version.com.mycila>3.0</version.com.mycila>
-    <version.com.puppycrawl.tools>8.32</version.com.puppycrawl.tools>
+    <version.com.puppycrawl.tools>8.33</version.com.puppycrawl.tools>
     <version.io.quarkus>1.5.0.Final</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.11.0</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.4.1</version.net.revelc.code.impsort-maven-plugin>
@@ -72,7 +72,7 @@
     <version.org.apache.maven.plugins.maven-javadoc-plugin>3.2.0</version.org.apache.maven.plugins.maven-javadoc-plugin>
     <version.org.apache.maven.plugins.maven-jxr-plugin>3.0.0</version.org.apache.maven.plugins.maven-jxr-plugin>
     <version.org.apache.maven.plugins.maven-pmd-plugin>3.13.0</version.org.apache.maven.plugins.maven-pmd-plugin>
-    <version.org.apache.maven.plugins.maven-project-info-reports-plugin>3.0.0</version.org.apache.maven.plugins.maven-project-info-reports-plugin>
+    <version.org.apache.maven.plugins.maven-project-info-reports-plugin>3.1.0</version.org.apache.maven.plugins.maven-project-info-reports-plugin>
     <version.org.apache.maven.plugins.maven-surefire-plugin>3.0.0-M4</version.org.apache.maven.plugins.maven-surefire-plugin>
     <version.org.codehaus.mojo.buildnumber-maven-plugin>1.4</version.org.codehaus.mojo.buildnumber-maven-plugin>
     <version.org.codehaus.mojo.taglist-maven-plugin>2.4</version.org.codehaus.mojo.taglist-maven-plugin>
