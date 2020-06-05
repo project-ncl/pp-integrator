@@ -23,16 +23,19 @@
   <script>
     $(function() {
       const dropdown = $('#product-dropdown');
-      const product_phase = $('#product-phase');
 
       dropdown.empty();
-      dropdown.append('<option selected="true" disabled>Select Product</option>');
+      dropdown.append('<option selected="true" disabled="disabled">Select Product</option>');
       dropdown.prop('selectedIndex', 0);
 
       const dropdown2 = $('#release-dropdown');
-      const release_phase = $('#release-phase');
 
       dropdown2.empty();
+      dropdown2.append('<option selected="true" disabled="disabled">Select Release</option>');
+      dropdown2.prop('selectedIndex', 0);
+
+      const product_phase = $('#product-phase');
+      const release_phase = $('#release-phase');
 
       dropdown2.on('change', function() {
         release_phase.html('');
@@ -41,8 +44,8 @@
           return;
         }
 
-        $.get('/api/phases/releases?shortname=' + dropdown2.val(), null, function(success) {
-          release_phase.html(success);
+        $.get('/api/phases/releases?shortname=' + dropdown2.val(), function(data) {
+          release_phase.html(data);
         });
       });
 
@@ -56,55 +59,61 @@
       $.getJSON('/api/products', function(data) {
         $.each(data, function(index, value) {
           dropdown.append($('<option></option>').attr('value', value).text(value));
-        })
-      });
+        }).done(dropdown.prop('disabled', false));
+      })
 
       dropdown.on('change', function() {
         product_phase.html('');
         release_phase.html('');
 
         dropdown2.empty();
+        dropdown2.append('<option selected="true" disabled="disabled">Select Release</option>');
+        dropdown2.prop('selectedIndex', 0);
 
         if (dropdown.val() == null) {
           return;
         }
 
-        $.get('/api/phases/products?shortname=' + dropdown.val(), null, function(success) {
-          product_phase.html(success);
+        $.get('/api/phases/products?shortname=' + dropdown.val(), function(data) {
+          product_phase.html(data);
 
           $.each(releases, function(index, value) {
             if (value.startsWith(dropdown.val())) {
               dropdown2.append($('<option></option>').attr('value', value).text(value));
             }
-          });
+          }).done(dropdown2.prop('disabled', false));
 
           if (dropdown2.val() == null) {
             return;
           }
 
-          $.get('/api/phases/releases?shortname=' + dropdown2.val(), null, function(success) {
-            release_phase.html(success);
-
-            return success;
-          },'text');
-
-          return success;
-        }, 'text');
+          $.get('/api/phases/releases?shortname=' + dropdown2.val(), function(data) {
+            release_phase.html(data);
+          });
+        });
       });
-
     });
   </script>
+  <style>
+    select.c1 {
+      width: 200px;
+    }
+
+  </style>
 </head>
 <body>
   <div>
     <h2>Product Pages Integrator ${project.version}</h2>
     <div>
       <form>
-        <p>Product: <select id="product-dropdown"></select> Phase: <span id="product-phase"></span></p>
-        <p>Release: <select id="release-dropdown"></select> Phase: <span id="release-phase"></span></p>
+        <p><label for="product-dropdown">Product:</label> <select id="product-dropdown" disabled="disabled"
+            class="c1"></select> Phase: <span id="product-phase"></span>
+        </p>
+        <p><label for="release-dropdown">Release:</label> <select id="release-dropdown" disabled="disabled"
+            class="c1"></select> Phase: <span id="release-phase"></span>
+        </p>
       </form>
     </div>
   </div>
 </body>
-
 </html>
