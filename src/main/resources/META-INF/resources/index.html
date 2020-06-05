@@ -17,103 +17,111 @@
 -->
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Product Pages Integrator</title>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script>
-    $(function() {
-      const dropdown = $('#product-dropdown');
+  <head>
+    <title>Product Pages Integrator</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      $(function() {
+        const dropdown = $('#product-dropdown');
 
-      dropdown.empty();
-      dropdown.append('<option selected="true" disabled="disabled">Select Product</option>');
-      dropdown.prop('selectedIndex', 0);
+        dropdown.empty();
+        dropdown.append('<option selected="true" disabled="disabled">Select Product</option>');
+        dropdown.prop('selectedIndex', 0);
 
-      const dropdown2 = $('#release-dropdown');
-
-      dropdown2.empty();
-      dropdown2.append('<option selected="true" disabled="disabled">Select Release</option>');
-      dropdown2.prop('selectedIndex', 0);
-
-      const product_phase = $('#product-phase');
-      const release_phase = $('#release-phase');
-
-      dropdown2.on('change', function() {
-        release_phase.html('');
-
-        if (dropdown2.val() == null) {
-          return;
-        }
-
-        $.get('/api/phases/releases?shortname=' + dropdown2.val(), function(data) {
-          release_phase.html(data);
-        });
-      });
-
-      // XXX
-      let releases;
-
-      $.getJSON('/api/releases', function(data) {
-        releases = data;
-      });
-
-      $.getJSON('/api/products', function(data) {
-        $.each(data, function(index, value) {
-          dropdown.append($('<option></option>').attr('value', value).text(value));
-        }).done(dropdown.prop('disabled', false));
-      })
-
-      dropdown.on('change', function() {
-        product_phase.html('');
-        release_phase.html('');
+        const dropdown2 = $('#release-dropdown');
 
         dropdown2.empty();
         dropdown2.append('<option selected="true" disabled="disabled">Select Release</option>');
         dropdown2.prop('selectedIndex', 0);
 
-        if (dropdown.val() == null) {
-          return;
-        }
+        // XXX
+        let releases;
 
-        $.get('/api/phases/products?shortname=' + dropdown.val(), function(data) {
-          product_phase.html(data);
+        $.getJSON('/api/releases', function(data) {
+          releases = data;
+        });
 
-          $.each(releases, function(index, value) {
-            if (value.startsWith(dropdown.val())) {
-              dropdown2.append($('<option></option>').attr('value', value).text(value));
-            }
-          }).done(dropdown2.prop('disabled', false));
+        $.getJSON('/api/products', function(data) {
+          $.each(data, function(index, value) {
+            dropdown.append($('<option></option>').attr('value', value).text(value));
+          })
+        }).done(function() {
+          dropdown.prop('disabled', false);
+        });
+
+        const product_phase = $('#product-phase');
+        const release_phase = $('#release-phase');
+
+        dropdown2.on('change', function() {
+          release_phase.html('');
 
           if (dropdown2.val() == null) {
             return;
           }
 
-          $.get('/api/phases/releases?shortname=' + dropdown2.val(), function(data) {
-            release_phase.html(data);
+          $.get('/api/phases/releases', { shortname: dropdown2.val() })
+            .done(function(data) {
+              release_phase.html(data);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+              const errorMessage = JSON.parse(jqXHR.responseText);
+
+              release_phase.html('<span style="color: red">Error ' + errorMessage.code + ': ' + errorMessage.message + '<\/span>');
+            });
+        });
+
+        dropdown.on('change', function() {
+          product_phase.html('');
+          release_phase.html('');
+
+          dropdown2.empty();
+          dropdown2.append('<option selected="true" disabled="disabled">Select Release</option>');
+          dropdown2.prop('selectedIndex', 0);
+
+          if (dropdown.val() == null) {
+            return;
+          }
+
+          $.each(releases, function(index, value) {
+            if (value.startsWith(dropdown.val())) {
+              dropdown2.append($('<option></option>').attr('value', value).text(value));
+            }
           });
+
+          dropdown2.prop('disabled', false);
+
+          $.get('/api/phases/products', { shortname: dropdown.val() })
+            .done(function(data) {
+              product_phase.html(data);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+              const errorMessage = JSON.parse(jqXHR.responseText);
+
+              product_phase.html('<span style="color: red">Error ' + errorMessage.code + ': ' + errorMessage.message + '<\/span>');
+            });
         });
       });
-    });
-  </script>
-  <style>
-    select.c1 {
-      width: 200px;
-    }
+    </script>
+    <style>
+      select.c1 {
+        width: 200px;
+      }
 
-  </style>
-</head>
-<body>
-  <div>
-    <h2>Product Pages Integrator ${project.version}</h2>
+    </style>
+  </head>
+  <body>
     <div>
-      <form>
-        <p><label for="product-dropdown">Product:</label> <select id="product-dropdown" disabled="disabled"
-            class="c1"></select> Phase: <span id="product-phase"></span>
-        </p>
-        <p><label for="release-dropdown">Release:</label> <select id="release-dropdown" disabled="disabled"
-            class="c1"></select> Phase: <span id="release-phase"></span>
-        </p>
-      </form>
+      <h2>Product Pages Integrator ${project.version}</h2>
+      <div>
+        <form>
+          <p><label for="product-dropdown">Product:</label> <select id="product-dropdown" disabled="disabled"
+              class="c1"></select> Phase: <span id="product-phase"></span>
+          </p>
+          <p><label for="release-dropdown">Release:</label> <select id="release-dropdown" disabled="disabled"
+              class="c1"></select> Phase: <span id="release-phase"></span>
+          </p>
+        </form>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
