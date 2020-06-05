@@ -16,6 +16,7 @@
 package org.jboss.pnc.ppitegrator.pp.model;
 
 public enum Phase {
+    CONCEPT(100, "Concept"),
     PLANNING(200, "Planning"),
     PLANNING_DEVELOPMENT_TESTING(230, "Planning / Development / Testing"),
     CI_CD(270, "CI / CD"),

@@ -19,6 +19,7 @@ or
 Assuming it has been given a valid shortname, the service will return
 one of the phase names listed below in `text/plain` format:
 
+- Concept
 - Planning
 - Planning / Development / Testing
 - CI / CD Development
