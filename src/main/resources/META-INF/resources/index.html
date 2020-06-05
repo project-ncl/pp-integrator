@@ -53,7 +53,7 @@
         const release_phase = $('#release-phase');
 
         dropdown2.on('change', function() {
-          release_phase.html('');
+          release_phase.removeClass('error').html('');
 
           if (dropdown2.val() == null) {
             return;
@@ -66,13 +66,13 @@
             .fail(function(jqXHR, textStatus, errorThrown) {
               const errorMessage = JSON.parse(jqXHR.responseText);
 
-              release_phase.html('<span style="color: red">Error ' + errorMessage.code + ': ' + errorMessage.message + '<\/span>');
+              release_phase.addClass('error').html('Error ' + errorMessage.code + ': ' + errorMessage.message);
             });
         });
 
         dropdown.on('change', function() {
-          product_phase.html('');
-          release_phase.html('');
+          product_phase.removeClass('error').html('');
+          release_phase.removeClass('error').html('');
 
           dropdown2.empty();
           dropdown2.append('<option selected="true" disabled="disabled">Select Release</option>');
@@ -97,7 +97,7 @@
             .fail(function(jqXHR, textStatus, errorThrown) {
               const errorMessage = JSON.parse(jqXHR.responseText);
 
-              product_phase.html('<span style="color: red">Error ' + errorMessage.code + ': ' + errorMessage.message + '<\/span>');
+              product_phase.addClass('error').html('Error ' + errorMessage.code + ': ' + errorMessage.message);
             });
         });
       });
@@ -105,6 +105,11 @@
     <style>
       select.c1 {
         width: 200px;
+      }
+
+      .error {
+        color: red;
+        font-weight: bold;
       }
 
     </style>
