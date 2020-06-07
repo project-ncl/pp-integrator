@@ -15,10 +15,6 @@
  */
 package org.jboss.pnc.ppitegrator.rest;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -42,44 +38,4 @@ public class ErrorMapper implements ExceptionMapper<Exception> {
         return Response.status(code).type(MediaType.APPLICATION_JSON).entity(errorMessage).build();
     }
 
-    class ErrorMessage {
-        private int code;
-
-        private String message;
-
-        private List<String> stackTrace;
-
-        ErrorMessage(int code, Exception exception) {
-            this.code = code;
-            this.message = exception.getMessage() != null ? exception.getMessage() : "";
-            this.stackTrace = Arrays.asList(exception.getStackTrace())
-                    .stream()
-                    .map(StackTraceElement::toString)
-                    .collect(Collectors.toList());
-        }
-
-        public int getCode() {
-            return code;
-        }
-
-        public void setCode(int code) {
-            this.code = code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public List<String> getStackTrace() {
-            return stackTrace;
-        }
-
-        public void setStackTrace(List<String> stackTrace) {
-            this.stackTrace = stackTrace;
-        }
-    }
 }

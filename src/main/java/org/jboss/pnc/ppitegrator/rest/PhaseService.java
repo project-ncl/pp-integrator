@@ -31,7 +31,7 @@ public interface PhaseService {
     @Path("products")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
-    Response getProductPhase(@NotEmpty @QueryParam String shortname);
+    String getProductPhase(@NotEmpty @QueryParam String shortname);
 
     @GET
     @Path("releases")

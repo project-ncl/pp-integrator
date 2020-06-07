@@ -26,12 +26,14 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.pnc.ppitegrator.pp.model.Product;
@@ -47,8 +49,11 @@ public class ProductResource implements ProductService {
     ProductPagesService productPagesService;
 
     @Override
-    @Operation(description = "Get product shortnames")
-    @APIResponse(responseCode = "200", description = "Valid shortnames returned")
+    @Operation(summary = "Get product shortnames", description = "Get product shortnames.")
+    @APIResponse(
+            responseCode = "200",
+            description = "Valid shortnames returned.",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(type = SchemaType.ARRAY)))
     @Counted(name = "getProductShortnamesCount", description = "How many product shortnames calls have been performed.")
     @Timed(
             name = "getProductShortnamesTimer",
@@ -58,13 +63,13 @@ public class ProductResource implements ProductService {
     @GET
     @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductShortnames() {
+    public Set<String> getProductShortnames() {
         Set<Product> products = productPagesService.getAllProducts("shortname");
         Set<String> shortnames = products.stream()
                 .map(Product::getShortname)
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
 
-        return Response.ok(shortnames).build();
+        return shortnames;
     }
 }
