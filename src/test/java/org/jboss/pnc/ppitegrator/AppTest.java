@@ -109,7 +109,7 @@ public class AppTest {
                 .as(String[].class);
         Set<String> products = new LinkedHashSet<>(Arrays.asList(prods));
 
-        LOGGER.info("Products: {}", products);
+        LOGGER.info("Number of products: {}", products.size());
 
         assertThat(products, is(not(empty())));
     }
@@ -130,7 +130,7 @@ public class AppTest {
                 .as(String[].class);
         Set<String> releases = new LinkedHashSet<>(Arrays.asList(rels));
 
-        LOGGER.info("Releases: {}", releases);
+        LOGGER.info("Number of releases: {}", releases.size());
 
         assertThat(releases, is(not(empty())));
     }

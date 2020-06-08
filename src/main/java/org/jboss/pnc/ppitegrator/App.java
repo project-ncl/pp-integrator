@@ -18,7 +18,19 @@ package org.jboss.pnc.ppitegrator;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
+import org.eclipse.microprofile.openapi.annotations.info.Contact;
+import org.eclipse.microprofile.openapi.annotations.info.Info;
+import org.eclipse.microprofile.openapi.annotations.info.License;
+
 @ApplicationPath("/api")
+@OpenAPIDefinition(
+        info = @Info(
+                title = "Product Pages Integrator",
+                version = "1.0.0",
+                description = "Integrates with Product Pages.",
+                contact = @Contact(name = "Red Hat, Inc.", url = "https://www.redhat.com/"),
+                license = @License(name = "ASL 2.0", url = "https://www.apache.org/licenses/LICENSE-2.0.txt")))
 public class App extends Application {
 
 }
