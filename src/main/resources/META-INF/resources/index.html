@@ -16,23 +16,40 @@
 
 -->
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
     <title>Product Pages Integrator</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css"
+      integrity="sha384-nJHx77dqIJ9kzFQqUhPYDKwrwgp5od9/BrMUGQLygWcJu64ODr9qYWLHQ4K/YxpB" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css"
+      integrity="sha384-q1wvnTYo0F4qq2mYrUz3DfnaM3gXSkyHfVoGbl4zKuZ9SMlg/JIWBHeU398mRAp4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"
+      integrity="sha384-4lW8IOzfCHwzlShlG/AP2aYc91C+r+v3lpUEpjBM+FOHy0INgLKgyMBZd7O9ejln"
+      crossorigin="anonymous"></script>
     <script>
       $(function() {
         const dropdown = $('#product-dropdown');
 
         dropdown.empty();
-        dropdown.append('<option selected="true" disabled="disabled">Select Product</option>');
-        dropdown.prop('selectedIndex', 0);
+        dropdown.append('<option disabled="disabled" selected="selected">Select a Product</option>');
 
         const dropdown2 = $('#release-dropdown');
 
         dropdown2.empty();
-        dropdown2.append('<option selected="true" disabled="disabled">Select Release</option>');
-        dropdown2.prop('selectedIndex', 0);
+        dropdown2.append('<option disabled="disabled" selected="selected">Select a Release</option>');
 
         // XXX
         let releases;
@@ -51,32 +68,33 @@
 
         const product_phase = $('#product-phase');
         const release_phase = $('#release-phase');
+        const productErrorAlert = $('#productErrorAlert');
+        const releaseErrorAlert = $('#releaseErrorAlert');
 
         dropdown2.on('change', function() {
-          release_phase.removeClass('error').html('');
-
           if (dropdown2.val() == null) {
             return;
           }
 
+          releaseErrorAlert.html('').hide();
+
           $.get('/api/phases/releases', { shortname: dropdown2.val() })
             .done(function(data) {
-              release_phase.html(data);
+              release_phase.html('Phase: ' + data);
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
               const errorMessage = JSON.parse(jqXHR.responseText);
 
-              release_phase.addClass('error').html('Error ' + errorMessage.code + ': ' + errorMessage.message);
+              releaseErrorAlert.html('Error ' + errorMessage.code + ': ' + errorMessage.message).show().alert();
             });
         });
 
         dropdown.on('change', function() {
-          product_phase.removeClass('error').html('');
-          release_phase.removeClass('error').html('');
+          productErrorAlert.html('').hide();
+          releaseErrorAlert.html('').hide();
 
           dropdown2.empty();
-          dropdown2.append('<option selected="true" disabled="disabled">Select Release</option>');
-          dropdown2.prop('selectedIndex', 0);
+          dropdown2.append('<option disabled="disabled" selected="selected">Select a Release</option>');
 
           if (dropdown.val() == null) {
             return;
@@ -92,40 +110,44 @@
 
           $.get('/api/phases/products', { shortname: dropdown.val() })
             .done(function(data) {
-              product_phase.html(data);
+              product_phase.html('Phase: ' + data);
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
               const errorMessage = JSON.parse(jqXHR.responseText);
 
-              product_phase.addClass('error').html('Error ' + errorMessage.code + ': ' + errorMessage.message);
+              productErrorAlert.html('Error ' + errorMessage.code + ': ' + errorMessage.message).show().alert();
             });
         });
       });
     </script>
     <style>
-      select.c1 {
-        width: 200px;
-      }
-
-      .error {
-        color: red;
-        font-weight: bold;
+      .c1 {
+        padding-left: 3em;
+        padding-right: 3em;
       }
 
     </style>
   </head>
   <body>
-    <div>
-      <h2>Product Pages Integrator ${project.version}</h2>
-      <div>
-        <form>
-          <p><label for="product-dropdown">Product:</label> <select id="product-dropdown" disabled="disabled"
-              class="c1"></select> Phase: <span id="product-phase"></span>
-          </p>
-          <p><label for="release-dropdown">Release:</label> <select id="release-dropdown" disabled="disabled"
-              class="c1"></select> Phase: <span id="release-phase"></span>
-          </p>
+    <div class="container-fluid c1">
+      <div class="page-header">
+        <h1>Product Pages Integrator ${project.version}</h1>
+      </div>
+      <div class="container-fluid form-container">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="product-dropdown">Product</label><select id="product-dropdown" class="form-control"
+              disabled="disabled"></select><span id="product-phase" class="badge badge-info-lg"></span>
+          </div>
+          <div class="form-group"><label for="release-dropdown">Release</label><select id="release-dropdown"
+              class="form-control" disabled="disabled"></select><span id="release-phase"
+              class="badge badge-info-lg"></span>
+          </div>
         </form>
+      </div>
+      <div id="productErrorAlert" class="alert alert-danger collapse">
+      </div>
+      <div id="releaseErrorAlert" class="alert alert-danger collapse">
       </div>
     </div>
   </body>
