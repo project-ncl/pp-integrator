@@ -14,8 +14,11 @@ bin/
 # NetBeans
 nb-configuration.xml
 
+# Visual Studio
+.vs/
+
 # Visual Studio Code
-.vscode
+.vscode/
 
 # OSX
 .DS_Store
