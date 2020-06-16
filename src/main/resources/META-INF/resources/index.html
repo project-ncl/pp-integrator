@@ -16,11 +16,11 @@
 
 -->
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en-us" xml:lang="en-us">
   <head>
-    <title>Product Pages Integrator</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Pages Integrator</title>
     <link rel="stylesheet" type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css"
       integrity="sha384-nJHx77dqIJ9kzFQqUhPYDKwrwgp5od9/BrMUGQLygWcJu64ODr9qYWLHQ4K/YxpB" crossorigin="anonymous" />
@@ -40,16 +40,17 @@
       integrity="sha384-4lW8IOzfCHwzlShlG/AP2aYc91C+r+v3lpUEpjBM+FOHy0INgLKgyMBZd7O9ejln"
       crossorigin="anonymous"></script>
     <script>
+      /*<![CDATA[*/
       $(function() {
         const dropdown = $('#product-dropdown');
 
         dropdown.empty();
-        dropdown.append('<option disabled="disabled" selected="selected">Select a Product</option>');
+        dropdown.append('<option disabled="disabled" selected="selected">Select a Product<\/option>');
 
         const dropdown2 = $('#release-dropdown');
 
         dropdown2.empty();
-        dropdown2.append('<option disabled="disabled" selected="selected">Select a Release</option>');
+        dropdown2.append('<option disabled="disabled" selected="selected">Select a Release<\/option>');
 
         // XXX
         let releases;
@@ -60,7 +61,7 @@
 
         $.getJSON('/api/products', function(data) {
           $.each(data, function(index, value) {
-            dropdown.append($('<option></option>').attr('value', value).text(value));
+            dropdown.append($('<option><\/option>').attr('value', value).text(value));
           })
         }).done(function() {
           dropdown.prop('disabled', false);
@@ -94,7 +95,7 @@
           releaseErrorAlert.html('').hide();
 
           dropdown2.empty();
-          dropdown2.append('<option disabled="disabled" selected="selected">Select a Release</option>');
+          dropdown2.append('<option disabled="disabled" selected="selected">Select a Release<\/option>');
 
           if (dropdown.val() == null) {
             return;
@@ -102,7 +103,7 @@
 
           $.each(releases, function(index, value) {
             if (value.startsWith(dropdown.val())) {
-              dropdown2.append($('<option></option>').attr('value', value).text(value));
+              dropdown2.append($('<option><\/option>').attr('value', value).text(value));
             }
           });
 
@@ -119,12 +120,16 @@
             });
         });
       });
+    /*]]>*/
     </script>
     <style>
+      /*<![CDATA[*/
       .c1 {
         padding-left: 3em;
         padding-right: 3em;
       }
+
+      /*]]>*/
 
     </style>
   </head>
