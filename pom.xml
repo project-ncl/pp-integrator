@@ -448,6 +448,9 @@ limitations under the License.]]></inlineHeader>
       <plugin>
         <groupId>org.ec4j.maven</groupId>
         <artifactId>editorconfig-maven-plugin</artifactId>
+        <configuration>
+          <excludesFile>.gitignore</excludesFile>
+        </configuration>
         <executions>
           <execution>
             <goals>
