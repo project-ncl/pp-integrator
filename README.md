@@ -60,7 +60,7 @@ executable build in a container using: `mvn package -Pnative
 -Dquarkus.native.container-build=true`.
 
 You can then execute your native executable with:
-`./target/pp-integrator-1.0.0-SNAPSHOT-runner`.
+`./target/pp-integrator-runner`.
 
 ## Running the tests
 
