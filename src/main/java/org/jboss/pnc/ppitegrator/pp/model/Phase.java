@@ -27,16 +27,16 @@ public enum Phase {
     MAINTENANCE(600, "Maintenance"),
     UNSUPPORTED(1000, "Unsupported");
 
-    private final Integer value;
+    private final int value;
 
     private final String name;
 
     Phase(int value, String name) {
-        this.value = Integer.valueOf(value);
+        this.value = value;
         this.name = name;
     }
 
-    public Integer getValue() {
+    public int getValue() {
         return value;
     }
 
@@ -50,7 +50,7 @@ public enum Phase {
         }
 
         for (Phase phase : Phase.values()) {
-            if (phase.getValue().equals(value)) {
+            if (phase.getValue() == value) {
                 return phase;
             }
         }
