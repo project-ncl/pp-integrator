@@ -29,8 +29,7 @@ class ErrorMessage {
     ErrorMessage(int code, Exception exception) {
         this.code = code;
         this.message = exception.getMessage() != null ? exception.getMessage() : "";
-        this.stackTrace = Arrays.asList(exception.getStackTrace())
-                .stream()
+        this.stackTrace = Arrays.stream(exception.getStackTrace())
                 .map(StackTraceElement::toString)
                 .collect(Collectors.toList());
     }
