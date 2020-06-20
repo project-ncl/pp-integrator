@@ -65,11 +65,10 @@ public class ProductResource implements ProductService {
     @Produces(MediaType.APPLICATION_JSON)
     public Set<String> getProductShortnames() {
         Set<Product> products = productPagesService.getAllProducts("shortname");
-        Set<String> shortnames = products.stream()
+
+        return products.stream()
                 .map(Product::getShortname)
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
-
-        return shortnames;
     }
 }
