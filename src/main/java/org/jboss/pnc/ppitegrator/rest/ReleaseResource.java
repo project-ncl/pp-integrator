@@ -65,11 +65,10 @@ public class ReleaseResource implements ReleaseService {
     @Produces(MediaType.APPLICATION_JSON)
     public Set<String> getReleaseShortnames() {
         Set<Release> releases = productPagesService.getAllReleases("shortname");
-        Set<String> shortnames = releases.stream()
+
+        return releases.stream()
                 .map(Release::getShortname)
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
-
-        return shortnames;
     }
 }
