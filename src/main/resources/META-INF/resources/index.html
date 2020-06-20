@@ -70,14 +70,17 @@
         const product_phase = $('#product-phase');
         const release_phase = $('#release-phase');
         const productErrorAlert = $('#productErrorAlert');
+        const productErrorAlertMessage = $('#productErrorAlertMessage');
         const releaseErrorAlert = $('#releaseErrorAlert');
+        const releaseErrorAlertMessage = $('#releaseErrorAlertMessage');
 
         dropdown2.on('change', function() {
           if (dropdown2.val() == null) {
             return;
           }
 
-          releaseErrorAlert.html('').hide();
+          releaseErrorAlert.hide();
+          releaseErrorAlertMessage.html('');
 
           $.get('/api/phases/releases', { shortname: dropdown2.val() })
             .done(function(data) {
@@ -85,14 +88,19 @@
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
               const errorMessage = JSON.parse(jqXHR.responseText);
+              const msg = 'Error ' + errorMessage.code + ': ' + errorMessage.message;
 
-              releaseErrorAlert.html('Error ' + errorMessage.code + ': ' + errorMessage.message).show().alert();
+              releaseErrorAlertMessage.html(msg);
+              releaseErrorAlert.show().alert();
             });
         });
 
         dropdown.on('change', function() {
-          productErrorAlert.html('').hide();
-          releaseErrorAlert.html('').hide();
+          productErrorAlert.hide();
+          productErrorAlertMessage.html('');
+
+          releaseErrorAlert.hide();
+          releaseErrorAlertMessage.html('');
 
           dropdown2.empty();
           dropdown2.append('<option disabled="disabled" selected="selected">Select a Release<\/option>');
@@ -116,7 +124,8 @@
             .fail(function(jqXHR, textStatus, errorThrown) {
               const errorMessage = JSON.parse(jqXHR.responseText);
 
-              productErrorAlert.html('Error ' + errorMessage.code + ': ' + errorMessage.message).show().alert();
+              productErrorAlertMessage.html('Error ' + errorMessage.code + ': ' + errorMessage.message);
+              productErrorAlert.show().alert();
             });
         });
       });
@@ -141,8 +150,12 @@
         </form>
       </div>
       <div id="productErrorAlert" class="alert alert-danger collapse">
+        <span class="pficon pficon-error-circle-o"></span>
+        <p id="productErrorAlertMessage"></p>
       </div>
       <div id="releaseErrorAlert" class="alert alert-danger collapse">
+        <span class="pficon pficon-error-circle-o"></span>
+        <p id="releaseErrorAlertMessage"></p>
       </div>
     </div>
   </body>
