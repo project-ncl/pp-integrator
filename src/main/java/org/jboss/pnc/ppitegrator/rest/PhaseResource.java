@@ -22,9 +22,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotEmpty;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -84,7 +84,9 @@ public class PhaseResource implements PhaseService {
         int size = products.size();
 
         if (size != 1) {
-            throw new NotFoundException("Expected to get exactly one product, but got " + size);
+            throw new WebApplicationException(
+                    "Expected to get exactly one product, but got " + size,
+                    Response.Status.NOT_FOUND);
         }
 
         Product product = products.iterator().next();
@@ -115,7 +117,7 @@ public class PhaseResource implements PhaseService {
     @Path("releases")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getReleasePhase(
+    public String getReleasePhase(
             @NotEmpty @Parameter(
                     required = true,
                     schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
@@ -123,16 +125,14 @@ public class PhaseResource implements PhaseService {
         int size = releases.size();
 
         if (size != 1) {
-            return Response
-                    .status(
-                            Response.Status.NOT_FOUND.getStatusCode(),
-                            "Expected to get exactly one release, but got " + size)
-                    .build();
+            throw new WebApplicationException(
+                    "Expected to get exactly one release, but got " + size,
+                    Response.Status.NOT_FOUND);
         }
 
         Release release = releases.iterator().next();
         Phase phase = Phase.fromValue(release.getPhase());
 
-        return Response.ok(phase.getName()).build();
+        return phase.getName();
     }
 }
