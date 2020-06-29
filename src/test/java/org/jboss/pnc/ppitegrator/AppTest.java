@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -38,7 +37,7 @@ import org.slf4j.LoggerFactory;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-public class AppTest {
+class AppTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppTest.class);
 
     @ConfigProperty(name = "test.product_shortname")
@@ -50,14 +49,14 @@ public class AppTest {
     private void verifyPhase(String name) {
         assertNotNull(name);
 
-        Phase phase = Phase.fromName(name);
+        var phase = Phase.fromName(name);
 
         LOGGER.info("Got phase {}", phase);
     }
 
     @Test
-    public void testPhaseProductEndpoint() {
-        String name = given().log()
+    void testPhaseProductEndpoint() {
+        var name = given().log()
                 .all()
                 .accept(MediaType.TEXT_PLAIN)
                 .when()
@@ -75,8 +74,8 @@ public class AppTest {
     }
 
     @Test
-    public void testPhaseReleaseEndpoint() {
-        String name = given().log()
+    void testPhaseReleaseEndpoint() {
+        var name = given().log()
                 .all()
                 .accept(MediaType.TEXT_PLAIN)
                 .when()
@@ -94,8 +93,8 @@ public class AppTest {
     }
 
     @Test
-    public void testProductsEndpoint() {
-        String[] prods = given().log()
+    void testProductsEndpoint() {
+        var prods = given().log()
                 .all()
                 .accept(MediaType.APPLICATION_JSON)
                 .when()
@@ -107,7 +106,7 @@ public class AppTest {
                 .statusCode(Response.Status.OK.getStatusCode())
                 .extract()
                 .as(String[].class);
-        Set<String> products = new LinkedHashSet<>(Arrays.asList(prods));
+        var products = new LinkedHashSet<String>(Arrays.asList(prods));
 
         LOGGER.info("Number of products: {}", products.size());
 
@@ -115,8 +114,8 @@ public class AppTest {
     }
 
     @Test
-    public void testReleasesEndpoint() {
-        String[] rels = given().log()
+    void testReleasesEndpoint() {
+        var rels = given().log()
                 .all()
                 .accept(MediaType.APPLICATION_JSON)
                 .when()
@@ -128,7 +127,7 @@ public class AppTest {
                 .statusCode(Response.Status.OK.getStatusCode())
                 .extract()
                 .as(String[].class);
-        Set<String> releases = new LinkedHashSet<>(Arrays.asList(rels));
+        var releases = new LinkedHashSet<String>(Arrays.asList(rels));
 
         LOGGER.info("Number of releases: {}", releases.size());
 

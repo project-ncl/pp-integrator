@@ -49,7 +49,7 @@ public enum Phase {
             throw new NullPointerException("value cannot be null");
         }
 
-        for (Phase phase : Phase.values()) {
+        for (var phase : Phase.values()) {
             if (phase.getValue() == value) {
                 return phase;
             }

@@ -265,6 +265,12 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${version.org.apache.maven.plugins.maven-javadoc-plugin}</version>
+          <configuration>
+            <sourceFileExcludes>
+              <sourceFileExclude>org/jboss/pnc/ppitegrator/AppTest.java</sourceFileExclude>
+              <sourceFileExclude>org/jboss/pnc/ppitegrator/NativeAppIT.java</sourceFileExclude>
+            </sourceFileExcludes>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

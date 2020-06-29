@@ -64,7 +64,7 @@ public class ReleaseResource implements ReleaseService {
     @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     public Set<String> getReleaseShortnames() {
-        Set<Release> releases = productPagesService.getAllReleases("shortname");
+        var releases = productPagesService.getAllReleases("shortname");
 
         return releases.stream()
                 .map(Release::getShortname)

@@ -64,7 +64,7 @@ public class ProductResource implements ProductService {
     @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     public Set<String> getProductShortnames() {
-        Set<Product> products = productPagesService.getAllProducts("shortname");
+        var products = productPagesService.getAllProducts("shortname");
 
         return products.stream()
                 .map(Product::getShortname)

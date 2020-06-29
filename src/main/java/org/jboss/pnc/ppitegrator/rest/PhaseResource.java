@@ -15,8 +15,6 @@
  */
 package org.jboss.pnc.ppitegrator.rest;
 
-import java.util.Set;
-
 import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -39,8 +37,6 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
-import org.jboss.pnc.ppitegrator.pp.model.Product;
-import org.jboss.pnc.ppitegrator.pp.model.Release;
 import org.jboss.pnc.ppitegrator.pp.rest.ProductPagesService;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
@@ -80,8 +76,8 @@ public class PhaseResource implements PhaseService {
             @NotEmpty @Parameter(
                     required = true,
                     schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
-        Set<Product> products = productPagesService.getProductWithFields(shortname, "phase");
-        int size = products.size();
+        var products = productPagesService.getProductWithFields(shortname, "phase");
+        var size = products.size();
 
         if (size != 1) {
             throw new WebApplicationException(
@@ -89,8 +85,8 @@ public class PhaseResource implements PhaseService {
                     Response.Status.NOT_FOUND);
         }
 
-        Product product = products.iterator().next();
-        Phase phase = Phase.fromValue(product.getPhase());
+        var product = products.iterator().next();
+        var phase = Phase.fromValue(product.getPhase());
 
         return phase.getName();
     }
@@ -121,8 +117,8 @@ public class PhaseResource implements PhaseService {
             @NotEmpty @Parameter(
                     required = true,
                     schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
-        Set<Release> releases = productPagesService.getRelease(shortname);
-        int size = releases.size();
+        var releases = productPagesService.getRelease(shortname);
+        var size = releases.size();
 
         if (size != 1) {
             throw new WebApplicationException(
@@ -130,8 +126,8 @@ public class PhaseResource implements PhaseService {
                     Response.Status.NOT_FOUND);
         }
 
-        Release release = releases.iterator().next();
-        Phase phase = Phase.fromValue(release.getPhase());
+        var release = releases.iterator().next();
+        var phase = Phase.fromValue(release.getPhase());
 
         return phase.getName();
     }
