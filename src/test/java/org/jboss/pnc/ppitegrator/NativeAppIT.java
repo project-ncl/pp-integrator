@@ -18,6 +18,6 @@ package org.jboss.pnc.ppitegrator;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class NativeAppIT extends AppTest {
+class NativeAppIT extends AppTest {
 
 }
