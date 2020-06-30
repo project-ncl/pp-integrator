@@ -64,7 +64,7 @@
     <version.com.mycila>4.0.rc1</version.com.mycila>
     <version.com.puppycrawl.tools>8.34</version.com.puppycrawl.tools>
     <version.io.quarkus>1.6.0.CR1</version.io.quarkus>
-    <version.net.revelc.code.formatter.formatter-maven-plugin>2.11.0</version.net.revelc.code.formatter.formatter-maven-plugin>
+    <version.net.revelc.code.formatter.formatter-maven-plugin>2.12.0</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.4.1</version.net.revelc.code.impsort-maven-plugin>
     <version.net.sourceforge.pmd>6.25.0</version.net.sourceforge.pmd>
     <version.org.apache.maven.plugins.maven-checkstyle-plugin>3.1.1</version.org.apache.maven.plugins.maven-checkstyle-plugin>
@@ -367,6 +367,8 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>.cache/*</exclude>
+            <exclude>.vs*/*</exclude>
             <exclude>LICENSE</exclude>
             <exclude>lsp/log/*.log</exclude>
             <exclude>src/main/docker/Dockerfile.jvm</exclude>
