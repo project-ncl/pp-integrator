@@ -46,3 +46,6 @@ generated-sources/
 .mvn/
 mvnw
 mvnw.cmd
+
+# formatter-maven-plugin
+.cache/
