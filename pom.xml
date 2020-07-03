@@ -59,11 +59,11 @@
     <mavenVersion>3.6.2</mavenVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <version.com.github.ekryd.sortpom>2.11.0</version.com.github.ekryd.sortpom>
+    <version.com.github.ekryd.sortpom>2.12.0</version.com.github.ekryd.sortpom>
     <version.com.github.spotbugs>4.0.4</version.com.github.spotbugs>
     <version.com.mycila>4.0.rc1</version.com.mycila>
     <version.com.puppycrawl.tools>8.34</version.com.puppycrawl.tools>
-    <version.io.quarkus>1.6.0.CR1</version.io.quarkus>
+    <version.io.quarkus>1.6.0.Final</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.12.0</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.4.1</version.net.revelc.code.impsort-maven-plugin>
     <version.net.sourceforge.pmd>6.25.0</version.net.sourceforge.pmd>
