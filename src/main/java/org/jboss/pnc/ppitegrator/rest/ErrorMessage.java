@@ -16,6 +16,7 @@
 package org.jboss.pnc.ppitegrator.rest;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,6 @@ class ErrorMessage {
     }
 
     public List<String> getStackTrace() {
-        return stackTrace;
+        return Collections.unmodifiableList(stackTrace);
     }
 }

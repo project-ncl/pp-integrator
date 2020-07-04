@@ -25,12 +25,14 @@ import javax.ws.rs.ext.Provider;
 public class ErrorMapper implements ExceptionMapper<Exception> {
     @Override
     public Response toResponse(Exception exception) {
-        var code = (int) 0;
+        var code = Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
 
         if (exception instanceof WebApplicationException) {
-            code = ((WebApplicationException) exception).getResponse().getStatus();
-        } else {
-            code = Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
+            var e = (WebApplicationException) exception;
+
+            try (var response = e.getResponse()) {
+                code = response.getStatus();
+            }
         }
 
         var errorMessage = new ErrorMessage(code, exception);
