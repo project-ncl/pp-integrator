@@ -15,13 +15,14 @@
  */
 package org.jboss.pnc.ppitegrator.pp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Release {
@@ -84,7 +85,8 @@ public class Release {
     private String shortname;
 
     @JsonProperty("ga_date")
-    private Date gaDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate gaDate;
 
     @JsonProperty("all_ga_tasks")
     private List<Object> allGaTasks;
@@ -99,7 +101,8 @@ public class Release {
     private Boolean published;
 
     @JsonProperty("not_maintained_since")
-    private Date notMaintainedSince;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate notMaintainedSince;
 
     @NotNull
     private String fullName;
@@ -151,7 +154,8 @@ public class Release {
     private String scheduleModeDisplay;
 
     @JsonProperty("schedule_invalid_date_since")
-    private Date scheduleInvalidDateSince;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate scheduleInvalidDateSince;
 
     @JsonProperty("schedule_validity_display")
     @NotNull
@@ -317,11 +321,11 @@ public class Release {
         this.shortname = shortname;
     }
 
-    public Date getGaDate() {
+    public LocalDate getGaDate() {
         return gaDate;
     }
 
-    public void setGaDate(Date gaDate) {
+    public void setGaDate(LocalDate gaDate) {
         this.gaDate = gaDate;
     }
 
@@ -357,11 +361,11 @@ public class Release {
         this.published = published;
     }
 
-    public Date getNotMaintainedSince() {
+    public LocalDate getNotMaintainedSince() {
         return notMaintainedSince;
     }
 
-    public void setNotMaintainedSince(Date notMaintainedSince) {
+    public void setNotMaintainedSince(LocalDate notMaintainedSince) {
         this.notMaintainedSince = notMaintainedSince;
     }
 
@@ -469,11 +473,11 @@ public class Release {
         this.scheduleModeDisplay = scheduleModeDisplay;
     }
 
-    public Date getScheduleInvalidDateSince() {
+    public LocalDate getScheduleInvalidDateSince() {
         return scheduleInvalidDateSince;
     }
 
-    public void setScheduleInvalidDateSince(Date scheduleInvalidDateSince) {
+    public void setScheduleInvalidDateSince(LocalDate scheduleInvalidDateSince) {
         this.scheduleInvalidDateSince = scheduleInvalidDateSince;
     }
 

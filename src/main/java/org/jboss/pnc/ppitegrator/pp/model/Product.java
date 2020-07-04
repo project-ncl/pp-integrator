@@ -15,13 +15,14 @@
  */
 package org.jboss.pnc.ppitegrator.pp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Product {
@@ -70,7 +71,8 @@ public class Product {
     private Boolean published;
 
     @JsonProperty("not_maintained_since")
-    private Date notMaintainedSince;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate notMaintainedSince;
 
     @NotNull
     private String description;
@@ -183,11 +185,11 @@ public class Product {
         this.published = published;
     }
 
-    public Date getNotMaintainedSince() {
+    public LocalDate getNotMaintainedSince() {
         return notMaintainedSince;
     }
 
-    public void setNotMaintainedSince(Date notMaintainedSince) {
+    public void setNotMaintainedSince(LocalDate notMaintainedSince) {
         this.notMaintainedSince = notMaintainedSince;
     }
 
