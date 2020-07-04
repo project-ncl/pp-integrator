@@ -171,7 +171,7 @@ public class Release {
 
     @JsonProperty("main_schedule")
     @NotNull
-    Object mainSchedule;
+    private Object mainSchedule;
 
     @JsonProperty("last_statuses")
     @NotNull
@@ -497,7 +497,7 @@ public class Release {
         this.currentMaintPhases = currentMaintPhases;
     }
 
-    public Boolean hasEndlessSchedule() {
+    public Boolean getHasEndlessSchedule() {
         return hasEndlessSchedule;
     }
 
