@@ -16,6 +16,7 @@
 package org.jboss.pnc.ppitegrator.pp.model;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -330,7 +331,7 @@ public class Release {
     }
 
     public List<Object> getAllGaTasks() {
-        return allGaTasks;
+        return Collections.unmodifiableList(allGaTasks);
     }
 
     public void setAllGaTasks(List<Object> allGaTasks) {
@@ -490,7 +491,7 @@ public class Release {
     }
 
     public List<Object> getCurrentMaintPhases() {
-        return currentMaintPhases;
+        return Collections.unmodifiableList(currentMaintPhases);
     }
 
     public void setCurrentMaintPhases(List<Object> currentMaintPhases) {
@@ -514,7 +515,7 @@ public class Release {
     }
 
     public List<Object> getLastStatuses() {
-        return lastStatuses;
+        return Collections.unmodifiableList(lastStatuses);
     }
 
     public void setLastStatuses(List<Object> lastStatuses) {
@@ -522,7 +523,7 @@ public class Release {
     }
 
     public List<Object> getNearingMilestones() {
-        return nearingMilestones;
+        return Collections.unmodifiableList(nearingMilestones);
     }
 
     public void setNearingMilestones(List<Object> nearingMilestones) {

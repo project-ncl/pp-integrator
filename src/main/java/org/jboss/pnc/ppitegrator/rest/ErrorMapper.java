@@ -39,5 +39,4 @@ public class ErrorMapper implements ExceptionMapper<Exception> {
 
         return Response.status(code).type(MediaType.APPLICATION_JSON).entity(errorMessage).build();
     }
-
 }

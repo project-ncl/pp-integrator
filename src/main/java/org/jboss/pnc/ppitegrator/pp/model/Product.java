@@ -16,6 +16,7 @@
 package org.jboss.pnc.ppitegrator.pp.model;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -154,19 +155,19 @@ public class Product {
     }
 
     public List<Release> getReleases() {
-        return releases;
+        return Collections.unmodifiableList(releases);
     }
 
     public void setReleases(List<Release> releases) {
         this.releases = releases;
     }
 
-    public Boolean getProjectBool() {
+    public Boolean getIsProjectBool() {
         return isProjectBool;
     }
 
-    public void setProjectBool(Boolean projectBool) {
-        isProjectBool = projectBool;
+    public void setIsProjectBool(Boolean isProjectBool) {
+        this.isProjectBool = isProjectBool;
     }
 
     public Boolean getCanceled() {
