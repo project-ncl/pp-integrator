@@ -106,7 +106,7 @@ class AppTest {
                 .statusCode(Response.Status.OK.getStatusCode())
                 .extract()
                 .as(String[].class);
-        var products = new LinkedHashSet<String>(Arrays.asList(prods));
+        var products = new LinkedHashSet<>(Arrays.asList(prods));
 
         LOGGER.info("Number of products: {}", products.size());
 
@@ -127,7 +127,7 @@ class AppTest {
                 .statusCode(Response.Status.OK.getStatusCode())
                 .extract()
                 .as(String[].class);
-        var releases = new LinkedHashSet<String>(Arrays.asList(rels));
+        var releases = new LinkedHashSet<>(Arrays.asList(rels));
 
         LOGGER.info("Number of releases: {}", releases.size());
 
