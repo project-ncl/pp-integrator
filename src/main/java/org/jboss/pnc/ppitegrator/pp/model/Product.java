@@ -17,7 +17,7 @@ package org.jboss.pnc.ppitegrator.pp.model;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -59,7 +59,7 @@ public class Product {
     private String platforms;
 
     @NotNull
-    private List<Release> releases;
+    private Set<Release> releases;
 
     @JsonProperty("is_project_bool")
     @NotNull
@@ -154,11 +154,11 @@ public class Product {
         this.platforms = platforms;
     }
 
-    public List<Release> getReleases() {
-        return Collections.unmodifiableList(releases);
+    public Set<Release> getReleases() {
+        return Collections.unmodifiableSet(releases);
     }
 
-    public void setReleases(List<Release> releases) {
+    public void setReleases(Set<Release> releases) {
         this.releases = releases;
     }
 
