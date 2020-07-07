@@ -17,7 +17,7 @@ package org.jboss.pnc.ppitegrator.pp.model;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -90,7 +90,7 @@ public class Release {
     private LocalDate gaDate;
 
     @JsonProperty("all_ga_tasks")
-    private List<Object> allGaTasks;
+    private Set<Object> allGaTasks;
 
     @NotNull
     private String cpe;
@@ -164,7 +164,7 @@ public class Release {
 
     @JsonProperty("current_maint_phases")
     @NotNull
-    private List<Object> currentMaintPhases;
+    private Set<Object> currentMaintPhases;
 
     @JsonProperty("has_endless_schedule")
     @NotNull
@@ -176,11 +176,11 @@ public class Release {
 
     @JsonProperty("last_statuses")
     @NotNull
-    private List<Object> lastStatuses;
+    private Set<Object> lastStatuses;
 
     @JsonProperty("nearing_milestones")
     @NotNull
-    private List<Object> nearingMilestones;
+    private Set<Object> nearingMilestones;
 
     @JsonProperty("security_xml")
     @NotNull
@@ -330,11 +330,11 @@ public class Release {
         this.gaDate = gaDate;
     }
 
-    public List<Object> getAllGaTasks() {
-        return Collections.unmodifiableList(allGaTasks);
+    public Set<Object> getAllGaTasks() {
+        return Collections.unmodifiableSet(allGaTasks);
     }
 
-    public void setAllGaTasks(List<Object> allGaTasks) {
+    public void setAllGaTasks(Set<Object> allGaTasks) {
         this.allGaTasks = allGaTasks;
     }
 
@@ -490,11 +490,11 @@ public class Release {
         this.scheduleValidityDisplay = scheduleValidityDisplay;
     }
 
-    public List<Object> getCurrentMaintPhases() {
-        return Collections.unmodifiableList(currentMaintPhases);
+    public Set<Object> getCurrentMaintPhases() {
+        return Collections.unmodifiableSet(currentMaintPhases);
     }
 
-    public void setCurrentMaintPhases(List<Object> currentMaintPhases) {
+    public void setCurrentMaintPhases(Set<Object> currentMaintPhases) {
         this.currentMaintPhases = currentMaintPhases;
     }
 
@@ -514,19 +514,19 @@ public class Release {
         this.mainSchedule = mainSchedule;
     }
 
-    public List<Object> getLastStatuses() {
-        return Collections.unmodifiableList(lastStatuses);
+    public Set<Object> getLastStatuses() {
+        return Collections.unmodifiableSet(lastStatuses);
     }
 
-    public void setLastStatuses(List<Object> lastStatuses) {
+    public void setLastStatuses(Set<Object> lastStatuses) {
         this.lastStatuses = lastStatuses;
     }
 
-    public List<Object> getNearingMilestones() {
-        return Collections.unmodifiableList(nearingMilestones);
+    public Set<Object> getNearingMilestones() {
+        return Collections.unmodifiableSet(nearingMilestones);
     }
 
-    public void setNearingMilestones(List<Object> nearingMilestones) {
+    public void setNearingMilestones(Set<Object> nearingMilestones) {
         this.nearingMilestones = nearingMilestones;
     }
 
