@@ -16,6 +16,7 @@
 package org.jboss.pnc.ppitegrator;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,6 +31,7 @@ import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
+import org.jboss.pnc.ppitegrator.rest.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,12 +48,22 @@ class AppTest {
     @ConfigProperty(name = "test.release_shortname")
     String releaseShortname;
 
-    private void verifyPhase(String name) {
+    private static final String BAD_PRODUCT_SHORTNAME = "XXX";
+
+    private static final String BAD_RELEASE_SHORT_NAME = "XXX";
+
+    private static void verifyPhase(String name) {
         assertNotNull(name);
 
         var phase = Phase.fromName(name);
 
         LOGGER.info("Got phase {}", phase);
+    }
+
+    private static void verifyErrorMessage(ErrorMessage errorMessage) {
+        assertThat(errorMessage.getCode(), is(Response.Status.NOT_FOUND.getStatusCode()));
+        assertThat(errorMessage.getMessage(), containsString("Expected to get exactly one "));
+        assertThat(errorMessage.getStackTrace(), is(not(empty())));
     }
 
     @Test
@@ -74,6 +86,25 @@ class AppTest {
     }
 
     @Test
+    void testBadPhaseProductEndpoint() {
+        var errorMessage = given().log()
+                .all()
+                .accept(MediaType.TEXT_PLAIN)
+                .when()
+                .queryParam("shortname", BAD_PRODUCT_SHORTNAME)
+                .get("/api/phases/products")
+                .then()
+                .log()
+                .all()
+                .assertThat()
+                .statusCode(Response.Status.NOT_FOUND.getStatusCode())
+                .extract()
+                .as(ErrorMessage.class);
+
+        verifyErrorMessage(errorMessage);
+    }
+
+    @Test
     void testPhaseReleaseEndpoint() {
         var name = given().log()
                 .all()
@@ -90,6 +121,25 @@ class AppTest {
                 .asString();
 
         verifyPhase(name);
+    }
+
+    @Test
+    void testBadPhaseReleaseEndpoint() {
+        var errorMessage = given().log()
+                .all()
+                .accept(MediaType.TEXT_PLAIN)
+                .when()
+                .queryParam("shortname", BAD_RELEASE_SHORT_NAME)
+                .get("/api/phases/releases")
+                .then()
+                .log()
+                .all()
+                .assertThat()
+                .statusCode(Response.Status.NOT_FOUND.getStatusCode())
+                .extract()
+                .as(ErrorMessage.class);
+
+        verifyErrorMessage(errorMessage);
     }
 
     @Test
