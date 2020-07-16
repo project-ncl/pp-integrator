@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class ErrorMessage {
+public class ErrorMessage {
     private final int code;
 
     private final String message;
@@ -29,10 +29,16 @@ class ErrorMessage {
 
     ErrorMessage(int code, Exception exception) {
         this.code = code;
-        this.message = exception.getMessage() != null ? exception.getMessage() : "";
-        this.stackTrace = Arrays.stream(exception.getStackTrace())
-                .map(StackTraceElement::toString)
-                .collect(Collectors.toList());
+
+        if (exception != null) {
+            message = exception.getMessage() != null ? exception.getMessage() : "";
+            stackTrace = Arrays.stream(exception.getStackTrace())
+                    .map(StackTraceElement::toString)
+                    .collect(Collectors.toList());
+        } else {
+            message = "";
+            stackTrace = Collections.emptyList();
+        }
     }
 
     public int getCode() {
