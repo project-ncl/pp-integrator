@@ -53,7 +53,7 @@ class AppTest {
     private static final String BAD_RELEASE_SHORT_NAME = "XXX";
 
     private static void verifyPhase(String name) {
-        assertNotNull(name);
+        assertNotNull(name, "Phase name cannot be null");
 
         var phase = Phase.fromName(name);
 
