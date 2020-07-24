@@ -21,7 +21,9 @@ import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -50,6 +52,8 @@ public class Product {
     private String name;
 
     @NotEmpty
+    @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$")
+    @Size(max = 128)
     private String shortname;
 
     @NotNull
