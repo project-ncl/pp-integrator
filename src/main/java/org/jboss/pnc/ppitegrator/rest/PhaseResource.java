@@ -19,6 +19,8 @@ import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -73,7 +75,7 @@ public class PhaseResource implements PhaseService {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     public String getProductPhase(
-            @NotEmpty @Parameter(
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$") @Size(max = 128) @Parameter(
                     required = true,
                     schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
         var products = productPagesService.getProductWithFields(shortname, "phase");
@@ -114,7 +116,7 @@ public class PhaseResource implements PhaseService {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     public String getReleasePhase(
-            @NotEmpty @Parameter(
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$") @Size(max = 128) @Parameter(
                     required = true,
                     schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
         var releases = productPagesService.getRelease(shortname);

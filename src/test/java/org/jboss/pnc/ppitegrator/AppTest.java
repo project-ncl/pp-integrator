@@ -48,22 +48,27 @@ class AppTest {
     @ConfigProperty(name = "test.release_shortname")
     String releaseShortname;
 
-    private static final String BAD_PRODUCT_SHORTNAME = "XXX";
+    private static final String MISSING_SHORTNAME = "XXX";
 
-    private static final String BAD_RELEASE_SHORT_NAME = "XXX";
+    private static final String INVALID_SHORTNAME = "000";
 
     private static void verifyPhase(String name) {
         assertNotNull(name, "Phase name cannot be null");
 
         var phase = Phase.fromName(name);
 
-        LOGGER.info("Got phase {}", phase);
+        LOGGER.info("Got phase: {}", phase);
     }
 
-    private static void verifyErrorMessage(ErrorMessage errorMessage) {
+    private static void verifyNotFound(ErrorMessage errorMessage) {
         assertThat(errorMessage.getCode(), is(Response.Status.NOT_FOUND.getStatusCode()));
         assertThat(errorMessage.getMessage(), containsString("Expected to get exactly one "));
         assertThat(errorMessage.getStackTrace(), is(not(empty())));
+    }
+
+    private static void verifyBadRequest(String errorMessage) {
+        LOGGER.info("Error message: {}", errorMessage);
+        assertThat(errorMessage, containsString("must match"));
     }
 
     @Test
@@ -86,12 +91,12 @@ class AppTest {
     }
 
     @Test
-    void testBadPhaseProductEndpoint() {
+    void testMissingPhaseProductEndpoint() {
         var errorMessage = given().log()
                 .all()
                 .accept(MediaType.TEXT_PLAIN)
                 .when()
-                .queryParam("shortname", BAD_PRODUCT_SHORTNAME)
+                .queryParam("shortname", MISSING_SHORTNAME)
                 .get("/api/phases/products")
                 .then()
                 .log()
@@ -101,7 +106,28 @@ class AppTest {
                 .extract()
                 .as(ErrorMessage.class);
 
-        verifyErrorMessage(errorMessage);
+        verifyNotFound(errorMessage);
+    }
+
+    @Test
+    void testInvalidPhaseProductEndpoint() {
+        var errorMessage = given().log()
+                .all()
+                .accept(MediaType.TEXT_PLAIN)
+                .when()
+                .queryParam("shortname", INVALID_SHORTNAME)
+                .get("/api/phases/products")
+                .then()
+                .log()
+                .all()
+                .assertThat()
+                .statusCode(Response.Status.BAD_REQUEST.getStatusCode())
+                .header("validation-exception", "true")
+                .extract()
+                .body()
+                .asString();
+
+        verifyBadRequest(errorMessage);
     }
 
     @Test
@@ -124,12 +150,12 @@ class AppTest {
     }
 
     @Test
-    void testBadPhaseReleaseEndpoint() {
+    void testMissingPhaseReleaseEndpoint() {
         var errorMessage = given().log()
                 .all()
                 .accept(MediaType.TEXT_PLAIN)
                 .when()
-                .queryParam("shortname", BAD_RELEASE_SHORT_NAME)
+                .queryParam("shortname", MISSING_SHORTNAME)
                 .get("/api/phases/releases")
                 .then()
                 .log()
@@ -139,7 +165,28 @@ class AppTest {
                 .extract()
                 .as(ErrorMessage.class);
 
-        verifyErrorMessage(errorMessage);
+        verifyNotFound(errorMessage);
+    }
+
+    @Test
+    void testInvalidPhaseReleaseEndpoint() {
+        var errorMessage = given().log()
+                .all()
+                .accept(MediaType.TEXT_PLAIN)
+                .when()
+                .queryParam("shortname", INVALID_SHORTNAME)
+                .get("/api/phases/releases")
+                .then()
+                .log()
+                .all()
+                .assertThat()
+                .statusCode(Response.Status.BAD_REQUEST.getStatusCode())
+                .header("validation-exception", "true")
+                .extract()
+                .body()
+                .asString();
+
+        verifyBadRequest(errorMessage);
     }
 
     @Test

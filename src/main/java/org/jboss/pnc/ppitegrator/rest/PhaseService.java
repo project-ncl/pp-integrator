@@ -17,6 +17,8 @@ package org.jboss.pnc.ppitegrator.rest;
 
 import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,11 +32,13 @@ public interface PhaseService {
     @Path("products")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
-    String getProductPhase(@NotEmpty @QueryParam String shortname);
+    String getProductPhase(
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$") @Size(max = 128) @QueryParam String shortname);
 
     @GET
     @Path("releases")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
-    String getReleasePhase(@NotEmpty @QueryParam String shortname);
+    String getReleasePhase(
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$") @Size(max = 128) @QueryParam String shortname);
 }
