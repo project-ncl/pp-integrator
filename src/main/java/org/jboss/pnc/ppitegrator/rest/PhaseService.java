@@ -33,12 +33,12 @@ public interface PhaseService {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     String getProductPhase(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$") @Size(max = 128) @QueryParam String shortname);
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
 
     @GET
     @Path("releases")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     String getReleasePhase(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$") @Size(max = 128) @QueryParam String shortname);
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
 }
