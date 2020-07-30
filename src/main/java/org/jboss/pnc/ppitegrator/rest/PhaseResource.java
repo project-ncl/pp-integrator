@@ -119,7 +119,7 @@ public class PhaseResource implements PhaseService {
             @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @Parameter(
                     required = true,
                     schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
-        var releases = productPagesService.getRelease(shortname);
+        var releases = productPagesService.getReleaseWithFields(shortname, "phase");
         var size = releases.size();
 
         if (size != 1) {
