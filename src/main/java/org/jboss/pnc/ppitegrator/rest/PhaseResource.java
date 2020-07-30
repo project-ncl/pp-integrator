@@ -75,7 +75,7 @@ public class PhaseResource implements PhaseService {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     public String getProductPhase(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$") @Size(max = 128) @Parameter(
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @Parameter(
                     required = true,
                     schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
         var products = productPagesService.getProductWithFields(shortname, "phase");
@@ -116,7 +116,7 @@ public class PhaseResource implements PhaseService {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     public String getReleasePhase(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$") @Size(max = 128) @Parameter(
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @Parameter(
                     required = true,
                     schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
         var releases = productPagesService.getRelease(shortname);
