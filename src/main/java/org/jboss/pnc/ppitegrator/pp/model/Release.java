@@ -109,6 +109,7 @@ public class Release {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate notMaintainedSince;
 
+    @JsonProperty("fullName")
     @NotNull
     private String fullName;
 
