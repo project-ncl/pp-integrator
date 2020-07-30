@@ -20,11 +20,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ErrorMessage {
     private final int code;
 
     private final String message;
 
+    @JsonProperty("stack_trace")
     private final List<String> stackTrace;
 
     ErrorMessage(int code, Exception exception) {
