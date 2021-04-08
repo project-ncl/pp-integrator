@@ -53,6 +53,7 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v2
         with:
+          distribution: 'adopt'
           java-version: ${{ matrix.java }}
       - name: Build with Maven
         run: mvn -B -e -V -DskipTests verify
