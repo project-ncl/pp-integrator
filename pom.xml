@@ -204,6 +204,7 @@
             <sortProperties>true</sortProperties>
             <keepBlankLines>true</keepBlankLines>
             <sortDependencies>scope,groupId,artifactId</sortDependencies>
+            <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
             <sortPlugins>scope,groupId,artifactId</sortPlugins>
           </configuration>
         </plugin>
