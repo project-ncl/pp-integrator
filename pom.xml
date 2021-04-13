@@ -59,6 +59,7 @@
     <mavenVersion>3.6.2</mavenVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <quarkus.package.type>uber-jar</quarkus.package.type>
     <version.com.github.ekryd.sortpom>2.15.0</version.com.github.ekryd.sortpom>
     <version.com.github.spotbugs>4.2.2</version.com.github.spotbugs>
     <version.com.mycila>4.0</version.com.mycila>
