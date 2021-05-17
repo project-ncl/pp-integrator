@@ -66,7 +66,7 @@
     <version.com.puppycrawl.tools>8.42</version.com.puppycrawl.tools>
     <version.io.quarkus>1.13.4.Final</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.15.0</version.net.revelc.code.formatter.formatter-maven-plugin>
-    <version.net.revelc.code.impsort-maven-plugin>1.6.1</version.net.revelc.code.impsort-maven-plugin>
+    <version.net.revelc.code.impsort-maven-plugin>1.6.2</version.net.revelc.code.impsort-maven-plugin>
     <version.net.sourceforge.pmd>6.34.0</version.net.sourceforge.pmd>
     <version.org.apache.maven.plugins.maven-checkstyle-plugin>3.1.2</version.org.apache.maven.plugins.maven-checkstyle-plugin>
     <version.org.apache.maven.plugins.maven-compiler-plugin>3.8.1-jboss-2</version.org.apache.maven.plugins.maven-compiler-plugin>
