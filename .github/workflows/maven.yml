@@ -43,7 +43,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.4.0
       - name: Cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v2.1.7
         with:
           path: ~/.m2/repository
           key: m2-repository-os-${{ matrix.os }}-java-${{ matrix.java }}-${{ hashFiles('**/pom.xml') }}
