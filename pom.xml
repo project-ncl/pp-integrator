@@ -64,7 +64,7 @@
     <version.com.github.spotbugs>4.5.3.0</version.com.github.spotbugs>
     <version.com.mycila>4.1</version.com.mycila>
     <version.com.puppycrawl.tools>10.0</version.com.puppycrawl.tools>
-    <version.io.quarkus>2.7.3.Final</version.io.quarkus>
+    <version.io.quarkus>2.7.4.Final</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.18.0</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.6.2</version.net.revelc.code.impsort-maven-plugin>
     <version.net.sourceforge.pmd>6.43.0</version.net.sourceforge.pmd>
