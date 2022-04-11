@@ -51,7 +51,7 @@ jobs:
             m2-repository-os-${{ matrix.os }}-java-${{ matrix.java }}-
             m2-repository-os-${{ matrix.os }}-
       - name: Setup Java JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
