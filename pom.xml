@@ -77,7 +77,7 @@
     <version.org.apache.maven.plugins.maven-surefire-plugin>3.0.0-M7</version.org.apache.maven.plugins.maven-surefire-plugin>
     <version.org.codehaus.mojo.buildnumber-maven-plugin>3.0.0</version.org.codehaus.mojo.buildnumber-maven-plugin>
     <version.org.codehaus.mojo.taglist-maven-plugin>3.0.0</version.org.codehaus.mojo.taglist-maven-plugin>
-    <version.org.codehaus.mojo.versions-maven-plugin>2.11.0</version.org.codehaus.mojo.versions-maven-plugin>
+    <version.org.codehaus.mojo.versions-maven-plugin>2.12.0</version.org.codehaus.mojo.versions-maven-plugin>
     <version.org.ec4j.maven.editorconfig-maven-plugin>0.1.1</version.org.ec4j.maven.editorconfig-maven-plugin>
     <version.org.jacoco>0.8.8</version.org.jacoco>
   </properties>
