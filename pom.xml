@@ -56,6 +56,8 @@
   <properties>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <mavenVersion>3.6.2</mavenVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -64,7 +66,7 @@
     <version.com.github.spotbugs>4.7.3.4</version.com.github.spotbugs>
     <version.com.mycila>4.2</version.com.mycila>
     <version.com.puppycrawl.tools>10.12.0</version.com.puppycrawl.tools>
-    <version.io.quarkus>2.16.6.Final</version.io.quarkus>
+    <version.io.quarkus>3.1.2.Final</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.23.0</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.9.0</version.net.revelc.code.impsort-maven-plugin>
     <version.net.sourceforge.pmd>6.55.0</version.net.sourceforge.pmd>
@@ -318,9 +320,9 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${version.org.apache.maven.plugins.maven-surefire-plugin}</version>
           <configuration>
-            <systemProperties>
+            <systemPropertyVariables>
               <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-            </systemProperties>
+            </systemPropertyVariables>
           </configuration>
         </plugin>
         <plugin>

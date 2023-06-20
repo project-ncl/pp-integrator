@@ -18,18 +18,18 @@ package org.jboss.pnc.ppitegrator.pp.rest;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.jboss.pnc.ppitegrator.pp.model.Product;
 import org.jboss.pnc.ppitegrator.pp.model.Release;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("v7")
 @RegisterRestClient
@@ -58,51 +58,51 @@ public interface ProductPagesService {
     @Path("products/")
     @Produces(MediaType.APPLICATION_JSON)
     Set<Product> getProduct(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
 
     @GET
     @Path("products/")
     @Produces(MediaType.APPLICATION_JSON)
     CompletionStage<Set<Product>> getProductAsync(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
 
     @GET
     @Path("products/")
     @Produces(MediaType.APPLICATION_JSON)
     Set<Product> getProductWithFields(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname,
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname,
             @QueryParam String fields);
 
     @GET
     @Path("products/")
     @Produces(MediaType.APPLICATION_JSON)
     CompletionStage<Set<Product>> getProductWithFieldsAsync(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname,
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname,
             @QueryParam String fields);
 
     @GET
     @Path("releases/")
     @Produces(MediaType.APPLICATION_JSON)
     Set<Release> getRelease(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
 
     @GET
     @Path("releases/")
     @Produces(MediaType.APPLICATION_JSON)
     CompletionStage<Set<Release>> getReleaseAsync(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
 
     @GET
     @Path("releases/")
     @Produces(MediaType.APPLICATION_JSON)
     Set<Release> getReleaseWithFields(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname,
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname,
             @QueryParam String fields);
 
     @GET
     @Path("releases/")
     @Produces(MediaType.APPLICATION_JSON)
     CompletionStage<Set<Release>> getReleaseWithFieldsAsync(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname,
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname,
             @QueryParam String fields);
 }

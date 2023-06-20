@@ -19,14 +19,14 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public class Release {
     @NotNull
@@ -85,7 +85,7 @@ public class Release {
     private String nameInclMaint;
 
     @NotEmpty
-    @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$")
+    @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*$")
     @Size(max = 128)
     private String shortname;
 
@@ -207,115 +207,115 @@ public class Release {
     @NotNull
     private String mainScheduleChangeMsg;
 
-    public Long getId() {
+    public @NotNull Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(@NotNull Long id) {
         this.id = id;
     }
 
-    public String getBuGroup() {
+    public @NotNull String getBuGroup() {
         return buGroup;
     }
 
-    public void setBuGroup(String buGroup) {
+    public void setBuGroup(@NotNull String buGroup) {
         this.buGroup = buGroup;
     }
 
-    public String getBuGroupShortname() {
+    public @NotNull String getBuGroupShortname() {
         return buGroupShortname;
     }
 
-    public void setBuGroupShortname(String buGroupShortname) {
+    public void setBuGroupShortname(@NotNull String buGroupShortname) {
         this.buGroupShortname = buGroupShortname;
     }
 
-    public String getBuGroupName() {
+    public @NotNull String getBuGroupName() {
         return buGroupName;
     }
 
-    public void setBuGroupName(String buGroupName) {
+    public void setBuGroupName(@NotNull String buGroupName) {
         this.buGroupName = buGroupName;
     }
 
-    public String getBu() {
+    public @NotNull String getBu() {
         return bu;
     }
 
-    public void setBu(String bu) {
+    public void setBu(@NotNull String bu) {
         this.bu = bu;
     }
 
-    public String getBuShortname() {
+    public @NotNull String getBuShortname() {
         return buShortname;
     }
 
-    public void setBuShortname(String buShortname) {
+    public void setBuShortname(@NotNull String buShortname) {
         this.buShortname = buShortname;
     }
 
-    public String getBuName() {
+    public @NotNull String getBuName() {
         return buName;
     }
 
-    public void setBuName(String buName) {
+    public void setBuName(@NotNull String buName) {
         this.buName = buName;
     }
 
-    public Long getRelgroup() {
+    public @NotNull Long getRelgroup() {
         return relgroup;
     }
 
-    public void setRelgroup(Long relgroup) {
+    public void setRelgroup(@NotNull Long relgroup) {
         this.relgroup = relgroup;
     }
 
-    public String getRelgroupShortname() {
+    public @NotNull String getRelgroupShortname() {
         return relgroupShortname;
     }
 
-    public void setRelgroupShortname(String relgroupShortname) {
+    public void setRelgroupShortname(@NotNull String relgroupShortname) {
         this.relgroupShortname = relgroupShortname;
     }
 
-    public Long getProduct() {
+    public @NotNull Long getProduct() {
         return product;
     }
 
-    public void setProduct(Long product) {
+    public void setProduct(@NotNull Long product) {
         this.product = product;
     }
 
-    public String getProductShortname() {
+    public @NotNull String getProductShortname() {
         return productShortname;
     }
 
-    public void setProductShortname(String productShortname) {
+    public void setProductShortname(@NotNull String productShortname) {
         this.productShortname = productShortname;
     }
 
-    public String getProductName() {
+    public @NotNull String getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
+    public void setProductName(@NotNull String productName) {
         this.productName = productName;
     }
 
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NotNull String name) {
         this.name = name;
     }
 
-    public String getNameInclMaint() {
+    public @NotNull String getNameInclMaint() {
         return nameInclMaint;
     }
 
-    public void setNameInclMaint(String nameInclMaint) {
+    public void setNameInclMaint(@NotNull String nameInclMaint) {
         this.nameInclMaint = nameInclMaint;
     }
 
@@ -343,27 +343,27 @@ public class Release {
         this.allGaTasks = allGaTasks;
     }
 
-    public String getCpe() {
+    public @NotNull String getCpe() {
         return cpe;
     }
 
-    public void setCpe(String cpe) {
+    public void setCpe(@NotNull String cpe) {
         this.cpe = cpe;
     }
 
-    public Boolean getCanceled() {
+    public @NotNull Boolean getCanceled() {
         return canceled;
     }
 
-    public void setCanceled(Boolean canceled) {
+    public void setCanceled(@NotNull Boolean canceled) {
         this.canceled = canceled;
     }
 
-    public Boolean getPublished() {
+    public @NotNull Boolean getPublished() {
         return published;
     }
 
-    public void setPublished(Boolean published) {
+    public void setPublished(@NotNull Boolean published) {
         this.published = published;
     }
 
@@ -375,19 +375,19 @@ public class Release {
         this.notMaintainedSince = notMaintainedSince;
     }
 
-    public String getFullName() {
+    public @NotNull String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
+    public void setFullName(@NotNull String fullName) {
         this.fullName = fullName;
     }
 
-    public Integer getPhase() {
+    public @NotNull Integer getPhase() {
         return phase;
     }
 
-    public void setPhase(Integer phase) {
+    public void setPhase(@NotNull Integer phase) {
         this.phase = phase;
     }
 
@@ -399,35 +399,35 @@ public class Release {
         this.phaseDisplay = phaseDisplay;
     }
 
-    public String getPlatforms() {
+    public @NotNull String getPlatforms() {
         return platforms;
     }
 
-    public void setPlatforms(String platforms) {
+    public void setPlatforms(@NotNull String platforms) {
         this.platforms = platforms;
     }
 
-    public String getBzProduct() {
+    public @NotNull String getBzProduct() {
         return bzProduct;
     }
 
-    public void setBzProduct(String bzProduct) {
+    public void setBzProduct(@NotNull String bzProduct) {
         this.bzProduct = bzProduct;
     }
 
-    public String getBzVersion() {
+    public @NotNull String getBzVersion() {
         return bzVersion;
     }
 
-    public void setBzVersion(String bzVersion) {
+    public void setBzVersion(@NotNull String bzVersion) {
         this.bzVersion = bzVersion;
     }
 
-    public String getBzNvrFlag() {
+    public @NotNull String getBzNvrFlag() {
         return bzNvrFlag;
     }
 
-    public void setBzNvrFlag(String bzNvrFlag) {
+    public void setBzNvrFlag(@NotNull String bzNvrFlag) {
         this.bzNvrFlag = bzNvrFlag;
     }
 
@@ -439,43 +439,43 @@ public class Release {
         isProjectBool = projectBool;
     }
 
-    public Boolean getInheritComms() {
+    public @NotNull Boolean getInheritComms() {
         return inheritComms;
     }
 
-    public void setInheritComms(Boolean inheritComms) {
+    public void setInheritComms(@NotNull Boolean inheritComms) {
         this.inheritComms = inheritComms;
     }
 
-    public Boolean getInheritDocs() {
+    public @NotNull Boolean getInheritDocs() {
         return inheritDocs;
     }
 
-    public void setInheritDocs(Boolean inheritDocs) {
+    public void setInheritDocs(@NotNull Boolean inheritDocs) {
         this.inheritDocs = inheritDocs;
     }
 
-    public String getDescription() {
+    public @NotNull String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(@NotNull String description) {
         this.description = description;
     }
 
-    public Integer getScheduleMode() {
+    public @NotNull Integer getScheduleMode() {
         return scheduleMode;
     }
 
-    public void setScheduleMode(Integer scheduleMode) {
+    public void setScheduleMode(@NotNull Integer scheduleMode) {
         this.scheduleMode = scheduleMode;
     }
 
-    public String getScheduleModeDisplay() {
+    public @NotNull String getScheduleModeDisplay() {
         return scheduleModeDisplay;
     }
 
-    public void setScheduleModeDisplay(String scheduleModeDisplay) {
+    public void setScheduleModeDisplay(@NotNull String scheduleModeDisplay) {
         this.scheduleModeDisplay = scheduleModeDisplay;
     }
 
@@ -487,11 +487,11 @@ public class Release {
         this.scheduleInvalidDateSince = scheduleInvalidDateSince;
     }
 
-    public String getScheduleValidityDisplay() {
+    public @NotNull String getScheduleValidityDisplay() {
         return scheduleValidityDisplay;
     }
 
-    public void setScheduleValidityDisplay(String scheduleValidityDisplay) {
+    public void setScheduleValidityDisplay(@NotNull String scheduleValidityDisplay) {
         this.scheduleValidityDisplay = scheduleValidityDisplay;
     }
 
@@ -499,23 +499,23 @@ public class Release {
         return Collections.unmodifiableSet(currentMaintPhases);
     }
 
-    public void setCurrentMaintPhases(Set<Object> currentMaintPhases) {
+    public void setCurrentMaintPhases(@NotNull Set<Object> currentMaintPhases) {
         this.currentMaintPhases = currentMaintPhases;
     }
 
-    public Boolean getHasEndlessSchedule() {
+    public @NotNull Boolean getHasEndlessSchedule() {
         return hasEndlessSchedule;
     }
 
-    public void setHasEndlessSchedule(Boolean hasEndlessSchedule) {
+    public void setHasEndlessSchedule(@NotNull Boolean hasEndlessSchedule) {
         this.hasEndlessSchedule = hasEndlessSchedule;
     }
 
-    public Object getMainSchedule() {
+    public @NotNull Object getMainSchedule() {
         return mainSchedule;
     }
 
-    public void setMainSchedule(Object mainSchedule) {
+    public void setMainSchedule(@NotNull Object mainSchedule) {
         this.mainSchedule = mainSchedule;
     }
 
@@ -523,7 +523,7 @@ public class Release {
         return Collections.unmodifiableSet(lastStatuses);
     }
 
-    public void setLastStatuses(Set<Object> lastStatuses) {
+    public void setLastStatuses(@NotNull Set<Object> lastStatuses) {
         this.lastStatuses = lastStatuses;
     }
 
@@ -531,47 +531,47 @@ public class Release {
         return Collections.unmodifiableSet(nearingMilestones);
     }
 
-    public void setNearingMilestones(Set<Object> nearingMilestones) {
+    public void setNearingMilestones(@NotNull Set<Object> nearingMilestones) {
         this.nearingMilestones = nearingMilestones;
     }
 
-    public String getSecurityXml() {
+    public @NotNull String getSecurityXml() {
         return securityXml;
     }
 
-    public void setSecurityXml(String securityXml) {
+    public void setSecurityXml(@NotNull String securityXml) {
         this.securityXml = securityXml;
     }
 
-    public String getTaskOrdering() {
+    public @NotNull String getTaskOrdering() {
         return taskOrdering;
     }
 
-    public void setTaskOrdering(String taskOrdering) {
+    public void setTaskOrdering(@NotNull String taskOrdering) {
         this.taskOrdering = taskOrdering;
     }
 
-    public Integer getReleaseOrdering() {
+    public @NotNull Integer getReleaseOrdering() {
         return releaseOrdering;
     }
 
-    public void setReleaseOrdering(Integer releaseOrdering) {
+    public void setReleaseOrdering(@NotNull Integer releaseOrdering) {
         this.releaseOrdering = releaseOrdering;
     }
 
-    public String getShortnameSort() {
+    public @NotNull String getShortnameSort() {
         return shortnameSort;
     }
 
-    public void setShortnameSort(String shortnameSort) {
+    public void setShortnameSort(@NotNull String shortnameSort) {
         this.shortnameSort = shortnameSort;
     }
 
-    public String getMainScheduleChangeMsg() {
+    public @NotNull String getMainScheduleChangeMsg() {
         return mainScheduleChangeMsg;
     }
 
-    public void setMainScheduleChangeMsg(String mainScheduleChangeMsg) {
+    public void setMainScheduleChangeMsg(@NotNull String mainScheduleChangeMsg) {
         this.mainScheduleChangeMsg = mainScheduleChangeMsg;
     }
 }
