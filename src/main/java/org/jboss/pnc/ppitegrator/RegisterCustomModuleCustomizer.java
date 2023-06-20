@@ -15,17 +15,16 @@
  */
 package org.jboss.pnc.ppitegrator;
 
-import javax.inject.Singleton;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 import io.quarkus.jackson.ObjectMapperCustomizer;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class RegisterCustomModuleCustomizer implements ObjectMapperCustomizer {
     @Override
     public void customize(ObjectMapper mapper) {
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     }
 }

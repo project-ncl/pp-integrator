@@ -26,9 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
 import org.jboss.pnc.ppitegrator.rest.ErrorMessage;
@@ -37,6 +34,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @QuarkusTest
 class AppTest {

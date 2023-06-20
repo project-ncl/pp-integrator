@@ -67,7 +67,7 @@ You can then execute your native executable with:
 To run the tests, you must set a few properties.
 
 ```
-$ mvn clean install -Dorg.jboss.pnc.ppitegrator.pp.rest.ProductPagesService/mp-rest/url=<pp_url> -Dtest.product_shortname=<product_shortname> -Dtest.release_shortname=<release_shortname>
+$ mvn clean install -Dpp.url=https://<pp_url>/pp/api -Dtest.product_shortname=<product_shortname> -Dtest.release_shortname=<release_shortname>
 ```
 
 The `org.jboss.pnc.ppitegrator.pp.rest.ProductPagesService/mp-rest/url`
@@ -78,4 +78,4 @@ The `test.product_shortname` property should be set to a valid product
 shortname, e.g., `jbossfoo`.
 
 The `test.release_shortname` property should be set to valid release
-shortname. e.g., `jbossfoo-1-0.0`.
+shortname. e.g., `jbossfoo-<major_version>-<minor_version>.<micro_version>`.

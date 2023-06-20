@@ -19,14 +19,14 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public class Product {
     @NotNull
@@ -52,7 +52,7 @@ public class Product {
     private String name;
 
     @NotEmpty
-    @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*$")
+    @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*$")
     @Size(max = 128)
     private String shortname;
 
@@ -86,19 +86,19 @@ public class Product {
     @Positive
     private Integer phase;
 
-    public Long getId() {
+    public @NotNull Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(@NotNull Long id) {
         this.id = id;
     }
 
-    public Long getBu() {
+    public @NotNull Long getBu() {
         return bu;
     }
 
-    public void setBu(Long bu) {
+    public void setBu(@NotNull Long bu) {
         this.bu = bu;
     }
 
@@ -142,19 +142,19 @@ public class Product {
         this.shortname = shortname;
     }
 
-    public String getBugzilla() {
+    public @NotNull String getBugzilla() {
         return bugzilla;
     }
 
-    public void setBugzilla(String bugzilla) {
+    public void setBugzilla(@NotNull String bugzilla) {
         this.bugzilla = bugzilla;
     }
 
-    public String getPlatforms() {
+    public @NotNull String getPlatforms() {
         return platforms;
     }
 
-    public void setPlatforms(String platforms) {
+    public void setPlatforms(@NotNull String platforms) {
         this.platforms = platforms;
     }
 
@@ -162,31 +162,31 @@ public class Product {
         return Collections.unmodifiableSet(releases);
     }
 
-    public void setReleases(Set<Release> releases) {
+    public void setReleases(@NotNull Set<Release> releases) {
         this.releases = releases;
     }
 
-    public Boolean getIsProjectBool() {
+    public @NotNull Boolean getIsProjectBool() {
         return isProjectBool;
     }
 
-    public void setIsProjectBool(Boolean isProjectBool) {
+    public void setIsProjectBool(@NotNull Boolean isProjectBool) {
         this.isProjectBool = isProjectBool;
     }
 
-    public Boolean getCanceled() {
+    public @NotNull Boolean getCanceled() {
         return canceled;
     }
 
-    public void setCanceled(Boolean canceled) {
+    public void setCanceled(@NotNull Boolean canceled) {
         this.canceled = canceled;
     }
 
-    public Boolean getPublished() {
+    public @NotNull Boolean getPublished() {
         return published;
     }
 
-    public void setPublished(Boolean published) {
+    public void setPublished(@NotNull Boolean published) {
         this.published = published;
     }
 
@@ -198,19 +198,19 @@ public class Product {
         this.notMaintainedSince = notMaintainedSince;
     }
 
-    public String getDescription() {
+    public @NotNull String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(@NotNull String description) {
         this.description = description;
     }
 
-    public Integer getPhase() {
+    public @NotNull Integer getPhase() {
         return phase;
     }
 
-    public void setPhase(Integer phase) {
+    public void setPhase(@NotNull Integer phase) {
         this.phase = phase;
     }
 }

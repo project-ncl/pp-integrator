@@ -15,16 +15,16 @@
  */
 package org.jboss.pnc.ppitegrator.rest;
 
-import javax.annotation.security.PermitAll;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
+
+import jakarta.annotation.security.PermitAll;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("/phases")
 public interface PhaseService {
@@ -32,13 +32,15 @@ public interface PhaseService {
     @Path("products")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
-    String getProductPhase(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
+    default String getProductPhase(
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname) {
+        return null;
+    }
 
     @GET
     @Path("releases")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     String getReleasePhase(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w\\.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
 }
