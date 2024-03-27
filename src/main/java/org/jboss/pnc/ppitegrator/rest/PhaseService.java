@@ -15,7 +15,7 @@
  */
 package org.jboss.pnc.ppitegrator.rest;
 
-import org.jboss.resteasy.annotations.jaxrs.QueryParam;
+import org.jboss.resteasy.reactive.RestQuery;
 
 import jakarta.annotation.security.PermitAll;
 import jakarta.validation.constraints.NotEmpty;
@@ -33,7 +33,7 @@ public interface PhaseService {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     default String getProductPhase(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname) {
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @RestQuery String shortname) {
         return null;
     }
 
@@ -42,5 +42,5 @@ public interface PhaseService {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     String getReleasePhase(
-            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @QueryParam String shortname);
+            @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @RestQuery String shortname);
 }
