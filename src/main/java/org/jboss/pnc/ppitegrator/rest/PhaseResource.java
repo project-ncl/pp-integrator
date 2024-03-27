@@ -27,7 +27,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
 import org.jboss.pnc.ppitegrator.pp.rest.ProductPagesService;
-import org.jboss.resteasy.annotations.jaxrs.QueryParam;
+import org.jboss.resteasy.reactive.RestQuery;
 
 import io.quarkus.cache.CacheResult;
 import jakarta.annotation.security.PermitAll;
@@ -76,7 +76,7 @@ public class PhaseResource implements PhaseService {
     public String getProductPhase(
             @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @Parameter(
                     required = true,
-                    schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
+                    schema = @Schema(type = SchemaType.STRING)) @RestQuery String shortname) {
         var products = productPagesService.getProductWithFields(shortname, "phase");
         var size = products.size();
 
@@ -117,7 +117,7 @@ public class PhaseResource implements PhaseService {
     public String getReleasePhase(
             @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*[^-]$") @Size(max = 128) @Parameter(
                     required = true,
-                    schema = @Schema(type = SchemaType.STRING)) @QueryParam String shortname) {
+                    schema = @Schema(type = SchemaType.STRING)) @RestQuery String shortname) {
         var releases = productPagesService.getReleaseWithFields(shortname, "phase");
         var size = releases.size();
 
