@@ -16,15 +16,19 @@
 package org.jboss.pnc.ppitegrator;
 
 import static io.restassured.RestAssured.given;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import static jakarta.ws.rs.core.MediaType.TEXT_PLAIN;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
+import static org.jboss.resteasy.reactive.RestResponse.StatusCode.BAD_REQUEST;
+import static org.jboss.resteasy.reactive.RestResponse.StatusCode.NOT_FOUND;
+import static org.jboss.resteasy.reactive.RestResponse.StatusCode.OK;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
@@ -34,8 +38,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.quarkus.test.junit.QuarkusTest;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 @QuarkusTest
 class AppTest {
@@ -60,7 +62,7 @@ class AppTest {
     }
 
     private static void verifyNotFound(ErrorMessage errorMessage) {
-        assertThat(errorMessage.getCode(), is(Response.Status.NOT_FOUND.getStatusCode()));
+        assertThat(errorMessage.getCode(), is(NOT_FOUND));
         assertThat(errorMessage.getMessage(), containsString("Expected to get exactly one "));
         assertThat(errorMessage.getStackTrace(), is(not(empty())));
     }
@@ -74,7 +76,7 @@ class AppTest {
     void testPhaseProductEndpoint() {
         var name = given().log()
                 .all()
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(TEXT_PLAIN)
                 .when()
                 .queryParam("shortname", productShortname)
                 .get("/api/phases/products")
@@ -82,7 +84,7 @@ class AppTest {
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(Response.Status.OK.getStatusCode())
+                .statusCode(OK)
                 .extract()
                 .asString();
 
@@ -93,7 +95,7 @@ class AppTest {
     void testMissingPhaseProductEndpoint() {
         var errorMessage = given().log()
                 .all()
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(TEXT_PLAIN)
                 .when()
                 .queryParam("shortname", MISSING_SHORTNAME)
                 .get("/api/phases/products")
@@ -101,7 +103,7 @@ class AppTest {
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(Response.Status.NOT_FOUND.getStatusCode())
+                .statusCode(NOT_FOUND)
                 .extract()
                 .as(ErrorMessage.class);
 
@@ -112,7 +114,7 @@ class AppTest {
     void testInvalidPhaseProductEndpoint() {
         var errorMessage = given().log()
                 .all()
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(TEXT_PLAIN)
                 .when()
                 .queryParam("shortname", INVALID_SHORTNAME)
                 .get("/api/phases/products")
@@ -120,7 +122,7 @@ class AppTest {
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(Response.Status.BAD_REQUEST.getStatusCode())
+                .statusCode(BAD_REQUEST)
                 .header("validation-exception", "true")
                 .extract()
                 .body()
@@ -133,7 +135,7 @@ class AppTest {
     void testPhaseReleaseEndpoint() {
         var name = given().log()
                 .all()
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(TEXT_PLAIN)
                 .when()
                 .queryParam("shortname", releaseShortname)
                 .get("/api/phases/releases")
@@ -141,7 +143,7 @@ class AppTest {
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(Response.Status.OK.getStatusCode())
+                .statusCode(OK)
                 .extract()
                 .asString();
 
@@ -152,7 +154,7 @@ class AppTest {
     void testMissingPhaseReleaseEndpoint() {
         var errorMessage = given().log()
                 .all()
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(TEXT_PLAIN)
                 .when()
                 .queryParam("shortname", MISSING_SHORTNAME)
                 .get("/api/phases/releases")
@@ -160,7 +162,7 @@ class AppTest {
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(Response.Status.NOT_FOUND.getStatusCode())
+                .statusCode(NOT_FOUND)
                 .extract()
                 .as(ErrorMessage.class);
 
@@ -171,7 +173,7 @@ class AppTest {
     void testInvalidPhaseReleaseEndpoint() {
         var errorMessage = given().log()
                 .all()
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(TEXT_PLAIN)
                 .when()
                 .queryParam("shortname", INVALID_SHORTNAME)
                 .get("/api/phases/releases")
@@ -179,7 +181,7 @@ class AppTest {
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(Response.Status.BAD_REQUEST.getStatusCode())
+                .statusCode(BAD_REQUEST)
                 .header("validation-exception", "true")
                 .extract()
                 .body()
@@ -192,17 +194,17 @@ class AppTest {
     void testProductsEndpoint() {
         var prods = given().log()
                 .all()
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
                 .when()
                 .get("/api/products")
                 .then()
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(Response.Status.OK.getStatusCode())
+                .statusCode(OK)
                 .extract()
                 .as(String[].class);
-        var products = new LinkedHashSet<>(Arrays.asList(prods));
+        var products = Set.of(prods);
 
         LOGGER.info("Number of products: {}", products.size());
 
@@ -213,17 +215,17 @@ class AppTest {
     void testReleasesEndpoint() {
         var rels = given().log()
                 .all()
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
                 .when()
                 .get("/api/releases")
                 .then()
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(Response.Status.OK.getStatusCode())
+                .statusCode(OK)
                 .extract()
                 .as(String[].class);
-        var releases = new LinkedHashSet<>(Arrays.asList(rels));
+        var releases = Set.of(rels);
 
         LOGGER.info("Number of releases: {}", releases.size());
 

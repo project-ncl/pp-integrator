@@ -67,7 +67,7 @@ You can then execute your native executable with:
 To run the tests, you must set a few properties.
 
 ```
-$ mvn clean install -Dpp.url=https://<pp_url>/pp/api -Dtest.product_shortname=<product_shortname> -Dtest.release_shortname=<release_shortname>
+$ mvn clean install -Dpp.url=https://<pp_host>/pp/api -Dtest.product_shortname=<product_shortname> -Dtest.release_shortname=<release_shortname>
 ```
 
 The `org.jboss.pnc.ppitegrator.pp.rest.ProductPagesService/mp-rest/url`
