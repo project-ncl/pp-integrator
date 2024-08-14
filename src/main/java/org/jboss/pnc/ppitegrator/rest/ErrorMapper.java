@@ -15,8 +15,10 @@
  */
 package org.jboss.pnc.ppitegrator.rest;
 
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import static org.jboss.resteasy.reactive.RestResponse.StatusCode.INTERNAL_SERVER_ERROR;
+
 import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
@@ -25,11 +27,9 @@ import jakarta.ws.rs.ext.Provider;
 public class ErrorMapper implements ExceptionMapper<Exception> {
     @Override
     public Response toResponse(Exception exception) {
-        var code = Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
+        var code = INTERNAL_SERVER_ERROR;
 
-        if (exception instanceof WebApplicationException) {
-            var e = (WebApplicationException) exception;
-
+        if (exception instanceof WebApplicationException e) {
             try (var response = e.getResponse()) {
                 code = response.getStatus();
             }
@@ -37,6 +37,6 @@ public class ErrorMapper implements ExceptionMapper<Exception> {
 
         var errorMessage = new ErrorMessage(code, exception);
 
-        return Response.status(code).type(MediaType.APPLICATION_JSON).entity(errorMessage).build();
+        return Response.status(code).type(APPLICATION_JSON).entity(errorMessage).build();
     }
 }
