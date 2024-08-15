@@ -23,6 +23,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.matchesRegex;
+import static org.jboss.pnc.ppitegrator.rest.VersionResource.VERSION_PATTERN;
 import static org.jboss.resteasy.reactive.RestResponse.StatusCode.BAD_REQUEST;
 import static org.jboss.resteasy.reactive.RestResponse.StatusCode.NOT_FOUND;
 import static org.jboss.resteasy.reactive.RestResponse.StatusCode.OK;
@@ -34,15 +36,12 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
 import org.jboss.pnc.ppitegrator.rest.ErrorMessage;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import io.quarkus.logging.Log;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 class AppTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppTest.class);
-
     @ConfigProperty(name = "test.product_shortname")
     String productShortname;
 
@@ -58,7 +57,7 @@ class AppTest {
 
         var phase = Phase.fromName(name);
 
-        LOGGER.info("Got phase: {}", phase);
+        Log.infof("Got phase: %s", phase);
     }
 
     private static void verifyNotFound(ErrorMessage errorMessage) {
@@ -68,7 +67,7 @@ class AppTest {
     }
 
     private static void verifyBadRequest(String errorMessage) {
-        LOGGER.info("Error message: {}", errorMessage);
+        Log.infof("Error message: %s", errorMessage);
         assertThat(errorMessage, containsString("must match"));
     }
 
@@ -206,7 +205,7 @@ class AppTest {
                 .as(String[].class);
         var products = Set.of(prods);
 
-        LOGGER.info("Number of products: {}", products.size());
+        Log.infof("Number of products: %s", products.size());
 
         assertThat(products, is(not(empty())));
     }
@@ -227,8 +226,27 @@ class AppTest {
                 .as(String[].class);
         var releases = Set.of(rels);
 
-        LOGGER.info("Number of releases: {}", releases.size());
+        Log.infof("Number of releases: %s", releases.size());
 
         assertThat(releases, is(not(empty())));
     }
+
+    @Test
+    void testVersionEndpoint() {
+        var version = given().log()
+                .all()
+                .accept(TEXT_PLAIN)
+                .when()
+                .get("/api/version")
+                .then()
+                .log()
+                .all()
+                .assertThat()
+                .statusCode(OK)
+                .extract()
+                .asString();
+
+        assertThat(version, matchesRegex(VERSION_PATTERN));
+    }
+
 }

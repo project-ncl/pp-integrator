@@ -23,7 +23,7 @@
     <groupId>org.jboss</groupId>
     <artifactId>jboss-parent</artifactId>
     <version>46</version>
-    <relativePath/>
+    <relativePath></relativePath>
   </parent>
 
   <groupId>org.jboss.pnc.ppintegrator</groupId>
@@ -66,6 +66,7 @@
     <version.com.github.spotbugs>4.8.6.2</version.com.github.spotbugs>
     <version.com.mycila>4.5</version.com.mycila>
     <version.com.puppycrawl.tools>10.17.0</version.com.puppycrawl.tools>
+    <version.io.github.git-commit-id>9.0.1</version.io.github.git-commit-id>
     <version.io.quarkus>3.13.2</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.24.1</version.net.revelc.code.formatter.formatter-maven-plugin>
     <version.net.revelc.code.impsort-maven-plugin>1.11.0</version.net.revelc.code.impsort-maven-plugin>
@@ -229,6 +230,11 @@
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <version>${version.com.mycila}</version>
+        </plugin>
+        <plugin>
+          <groupId>io.github.git-commit-id</groupId>
+          <artifactId>git-commit-id-maven-plugin</artifactId>
+          <version>${version.io.github.git-commit-id}</version>
         </plugin>
         <plugin>
           <groupId>io.quarkus</groupId>
@@ -431,6 +437,20 @@ limitations under the License.]]></inlineHeader>
           <execution>
             <goals>
               <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>io.github.git-commit-id</groupId>
+        <artifactId>git-commit-id-maven-plugin</artifactId>
+        <configuration>
+          <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>revision</goal>
             </goals>
           </execution>
         </executions>
