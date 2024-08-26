@@ -24,6 +24,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.matchesRegex;
+import static org.jboss.pnc.ppitegrator.rest.VersionResource.UNKNOWN_VERSION;
 import static org.jboss.pnc.ppitegrator.rest.VersionResource.VERSION_PATTERN;
 import static org.jboss.resteasy.reactive.RestResponse.StatusCode.BAD_REQUEST;
 import static org.jboss.resteasy.reactive.RestResponse.StatusCode.NOT_FOUND;
@@ -232,6 +233,13 @@ class AppTest {
     }
 
     @Test
+    void testVersionRegex() {
+        assertThat("1.0.0-SNAPSHOT 2024-08-26T11:36:27-04:00 a2bbb6a", matchesRegex(VERSION_PATTERN));
+        assertThat("1.0.0-SNAPSHOT 2024-08-26T15:29:09Z f6dfbe7", matchesRegex(VERSION_PATTERN));
+        assertThat(UNKNOWN_VERSION, matchesRegex(VERSION_PATTERN));
+    }
+
+    @Test
     void testVersionEndpoint() {
         var version = given().log()
                 .all()
@@ -248,5 +256,4 @@ class AppTest {
 
         assertThat(version, matchesRegex(VERSION_PATTERN));
     }
-
 }
