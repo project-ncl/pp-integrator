@@ -25,8 +25,11 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class VersionResource implements VersionService {
+    public static final String UNKNOWN_VERSION = "unknown";
+
     public static final Pattern VERSION_PATTERN = Pattern.compile(
-            "^(\\d+\\.\\d+\\.\\d+(-SNAPSHOT)? \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:\\d{2} [0-9a-f]{7}|unknown)$");
+            "^(\\d+\\.\\d+\\.\\d+(-SNAPSHOT)? \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}([+-]\\d{2}:\\d{2}|Z)? [0-9a-f]{7}|"
+                    + UNKNOWN_VERSION + ")$");
 
     private static final String GIT_PROPERTIES = "git.properties";
 
@@ -35,8 +38,6 @@ public class VersionResource implements VersionService {
     private static final String GIT_BUILD_TIME = "git.build.time";
 
     private static final String GIT_COMMIT_ID_ABBREV = "git.commit.id.abbrev";
-
-    private static final String UNKNOWN = "unknown";
 
     private static String version;
 
@@ -68,7 +69,7 @@ public class VersionResource implements VersionService {
             }
         } catch (Exception e) {
             Log.errorf("Error reading GIT information from %s", GIT_PROPERTIES, e);
-            version = UNKNOWN;
+            version = UNKNOWN_VERSION;
         }
 
         return version;
