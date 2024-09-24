@@ -99,6 +99,10 @@
   </dependencyManagement>
   <dependencies>
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-cache</artifactId>
     </dependency>
@@ -674,7 +678,9 @@ limitations under the License.]]></inlineHeader>
         </property>
       </activation>
       <properties>
+        <quarkus.native.additional-build-args>-H:IncludeResources=.*/application.properties$</quarkus.native.additional-build-args>
         <quarkus.native.enabled>true</quarkus.native.enabled>
+        <quarkus.package.jar.add-runner-suffix>false</quarkus.package.jar.add-runner-suffix>
         <quarkus.package.jar.enabled>false</quarkus.package.jar.enabled>
       </properties>
       <build>
