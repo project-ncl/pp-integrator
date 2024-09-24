@@ -20,6 +20,8 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
+import com.google.common.io.Resources;
+
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -52,7 +54,9 @@ public class VersionResource implements VersionService {
         }
 
         try {
-            try (var in = VersionService.class.getResourceAsStream(APPLICATION_PROPERTIES)) {
+            var url = Resources.getResource(APPLICATION_PROPERTIES);
+
+            try (var in = url.openStream()) {
                 var props = new Properties(NUM_PROPERTIES);
                 props.load(in);
                 var gitBuildVersion = props.getProperty(GIT_BUILD_VERSION);
