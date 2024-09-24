@@ -28,16 +28,20 @@ public class VersionResource implements VersionService {
     public static final String UNKNOWN_VERSION = "unknown";
 
     public static final Pattern VERSION_PATTERN = Pattern.compile(
-            "^(\\d+\\.\\d+\\.\\d+(-SNAPSHOT)? \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}([+-]\\d{2}:\\d{2}|Z)? [0-9a-f]{7}|"
+            "^(\\d+\\.\\d+\\.\\d+(-SNAPSHOT)? \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}([+-]\\d{2}:\\d{2}|Z)? [0-9a-f]{7} \\d+\\.\\d+\\.\\d+(-SNAPSHOT)?|"
                     + UNKNOWN_VERSION + ")$");
 
-    private static final String GIT_PROPERTIES = "git.properties";
+    private static final String APPLICATION_PROPERTIES = "application.properties";
+
+    private static final int NUM_PROPERTIES = 4;
 
     private static final String GIT_BUILD_VERSION = "git.build.version";
 
     private static final String GIT_BUILD_TIME = "git.build.time";
 
     private static final String GIT_COMMIT_ID_ABBREV = "git.commit.id.abbrev";
+
+    private static final String VERSION_IO_QUARKUS = "version.io.quarkus";
 
     private static String version;
 
@@ -48,27 +52,22 @@ public class VersionResource implements VersionService {
         }
 
         try {
-            var resources = VersionResource.class.getClassLoader().getResources(GIT_PROPERTIES);
-            var props = new Properties();
-
-            while (resources.hasMoreElements()) {
-                var url = resources.nextElement();
-                Log.debugf("Loaded GIT information from %s", url);
-
-                try (var in = url.openStream()) {
-                    props.load(in);
-                    var gitBuildVersion = props.getProperty(GIT_BUILD_VERSION);
-                    Objects.requireNonNull(gitBuildVersion);
-                    var gitBuildTime = props.getProperty(GIT_BUILD_TIME);
-                    Objects.requireNonNull(gitBuildTime);
-                    var buildTime = OffsetDateTime.parse(gitBuildTime).toString();
-                    var gitCommitIdAbbrev = props.getProperty(GIT_COMMIT_ID_ABBREV);
-                    Objects.requireNonNull(gitCommitIdAbbrev);
-                    version = String.join(" ", gitBuildVersion, buildTime, gitCommitIdAbbrev).stripLeading();
-                }
+            try (var in = VersionService.class.getResourceAsStream(APPLICATION_PROPERTIES)) {
+                var props = new Properties(NUM_PROPERTIES);
+                props.load(in);
+                var gitBuildVersion = props.getProperty(GIT_BUILD_VERSION);
+                Objects.requireNonNull(gitBuildVersion);
+                var gitBuildTime = props.getProperty(GIT_BUILD_TIME);
+                Objects.requireNonNull(gitBuildTime);
+                var buildTime = OffsetDateTime.parse(gitBuildTime).toString();
+                var gitCommitIdAbbrev = props.getProperty(GIT_COMMIT_ID_ABBREV);
+                Objects.requireNonNull(gitCommitIdAbbrev);
+                var versionIoQuarkus = props.getProperty(VERSION_IO_QUARKUS);
+                version = String.join(" ", gitBuildVersion, buildTime, gitCommitIdAbbrev, versionIoQuarkus)
+                        .stripLeading();
             }
         } catch (Exception e) {
-            Log.errorf("Error reading GIT information from %s", GIT_PROPERTIES, e);
+            Log.errorf("Error reading properties from %s", APPLICATION_PROPERTIES, e);
             version = UNKNOWN_VERSION;
         }
 

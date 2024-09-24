@@ -42,13 +42,21 @@
     <script>
       /*<![CDATA[*/
       $(function() {
-        const dropdown = $('#product-dropdown');
+        $.get('/api/version')
+          .done(function(data) {
+            version.html('Version: ' + data);
+          })
+          .fail(function(jqXHR, textStatus, errorThrown) {
+            const errorMessage = JSON.parse(jqXHR.responseText);
+            const msg = 'Error ' + errorMessage.code + ': ' + errorMessage.message;
+            version.html('Version: ' + msg);
+          });
 
+        const dropdown = $('#product-dropdown');
         dropdown.empty();
         dropdown.append('<option disabled="disabled" selected="selected">Select a Product<\/option>');
 
         const dropdown2 = $('#release-dropdown');
-
         dropdown2.empty();
         dropdown2.append('<option disabled="disabled" selected="selected">Select a Release<\/option>');
 
@@ -69,6 +77,7 @@
 
         const product_phase = $('#product-phase');
         const release_phase = $('#release-phase');
+        const version = $('#version');
         const productErrorAlert = $('#productErrorAlert');
         const productErrorAlertMessage = $('#productErrorAlertMessage');
         const releaseErrorAlert = $('#releaseErrorAlert');
@@ -136,9 +145,7 @@
     <div class="container">
       <div class="page-header">
         <h1 style="text-align: center">Product Pages Integrator</h1>
-        <h2 style="text-align: center">${git.build.version}</h2>
-        <h3 style="text-align: center">${git.build.time}</h3>
-        <h4 style="text-align: center">${git.commit.id.abbrev}</h4>
+        <p style="text-align: center"><span id="version" class="label label-primary"></span></p>
       </div>
       <div class="form-container">
         <form class="form-horizontal">
