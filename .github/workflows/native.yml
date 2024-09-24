@@ -51,6 +51,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'graalvm'
+          native-image-job-reports: 'true'
       - name: Show versions
         run: |
           echo "GRAALVM_HOME: $GRAALVM_HOME"
@@ -58,4 +59,12 @@ jobs:
           java --version
           native-image --version
       - name: Build with Maven
-        run: mvn -B -e -V -DskipTests -Dnative package
+        run: |
+          mvn -B -e -V -DskipTests -Dnative package
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: pp-integrator-${{ matrix.os }}
+          path: |
+            target/pp-integrator
+            target/pp-integrator.exe

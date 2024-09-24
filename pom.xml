@@ -655,6 +655,18 @@ limitations under the License.]]></inlineHeader>
 
   <profiles>
     <profile>
+      <id>jar</id>
+      <activation>
+        <property>
+          <name>!native</name>
+        </property>
+      </activation>
+      <properties>
+        <quarkus.package.jar.enabled>true</quarkus.package.jar.enabled>
+        <quarkus.package.jar.type>uber-jar</quarkus.package.jar.type>
+      </properties>
+    </profile>
+    <profile>
       <id>native</id>
       <activation>
         <property>
@@ -663,6 +675,7 @@ limitations under the License.]]></inlineHeader>
       </activation>
       <properties>
         <quarkus.native.enabled>true</quarkus.native.enabled>
+        <quarkus.package.jar.enabled>false</quarkus.package.jar.enabled>
       </properties>
       <build>
         <plugins>
@@ -678,7 +691,7 @@ limitations under the License.]]></inlineHeader>
                 </goals>
                 <configuration>
                   <systemProperties>
-                    <native.image.path>${project.build.directory}/${project.artifactId}-runner</native.image.path>
+                    <native.image.path>${project.build.directory}/${project.artifactId}</native.image.path>
                   </systemProperties>
                 </configuration>
               </execution>
