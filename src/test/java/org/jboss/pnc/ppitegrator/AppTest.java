@@ -31,9 +31,9 @@ import static org.jboss.resteasy.reactive.RestResponse.StatusCode.NOT_FOUND;
 import static org.jboss.resteasy.reactive.RestResponse.StatusCode.OK;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Objects;
 import java.util.Set;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.pnc.ppitegrator.pp.model.Phase;
 import org.jboss.pnc.ppitegrator.rest.ErrorMessage;
 import org.junit.jupiter.api.Test;
@@ -43,12 +43,6 @@ import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 class AppTest {
-    @ConfigProperty(name = "test.product_shortname")
-    String productShortname;
-
-    @ConfigProperty(name = "test.release_shortname")
-    String releaseShortname;
-
     private static final String MISSING_SHORTNAME = "XXX";
 
     private static final String INVALID_SHORTNAME = "000";
@@ -74,6 +68,10 @@ class AppTest {
 
     @Test
     void testPhaseProductEndpoint() {
+        var productShortname = System.getProperty("test.product_shortname");
+        Objects.requireNonNull(
+                productShortname,
+                "Product shortname cannot be null. Use \"-Dtest.product_shortname=jbossfoo\"");
         var name = given().log()
                 .all()
                 .accept(TEXT_PLAIN)
@@ -133,6 +131,10 @@ class AppTest {
 
     @Test
     void testPhaseReleaseEndpoint() {
+        var releaseShortname = System.getProperty("test.release_shortname");
+        Objects.requireNonNull(
+                releaseShortname,
+                "Release shortname cannot be null. Use \"-Dtest.release_shortname=jbossfoo-1-0.0\"");
         var name = given().log()
                 .all()
                 .accept(TEXT_PLAIN)
@@ -234,8 +236,8 @@ class AppTest {
 
     @Test
     void testVersionRegex() {
-        assertThat("1.0.0-SNAPSHOT 2024-08-26T11:36:27-04:00 a2bbb6a", matchesRegex(VERSION_PATTERN));
-        assertThat("1.0.0-SNAPSHOT 2024-08-26T15:29:09Z f6dfbe7", matchesRegex(VERSION_PATTERN));
+        assertThat("1.0.0-SNAPSHOT 2024-08-26T11:36:27-04:00 a2bbb6a 3.15.0", matchesRegex(VERSION_PATTERN));
+        assertThat("1.0.0-SNAPSHOT 2024-08-26T15:29:09Z f6dfbe7 3.15.0", matchesRegex(VERSION_PATTERN));
         assertThat(UNKNOWN_VERSION, matchesRegex(VERSION_PATTERN));
     }
 
