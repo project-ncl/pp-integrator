@@ -261,7 +261,7 @@
           <artifactId>formatter-maven-plugin</artifactId>
           <version>${version.net.revelc.code.formatter.formatter-maven-plugin}</version>
           <configuration>
-            <configFile>https://raw.githubusercontent.com/project-ncl/ide-config/main/src/main/resources/jboss-java-formatter.xml</configFile>
+            <configFile>https://raw.githubusercontent.com/project-ncl/ide-config/main/src/main/resources/java-formatter.xml</configFile>
             <lineEnding>LF</lineEnding>
           </configuration>
         </plugin>
