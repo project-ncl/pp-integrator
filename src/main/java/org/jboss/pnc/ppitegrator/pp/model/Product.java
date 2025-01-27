@@ -27,5 +27,12 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-public record Product(@NotNull @Positive Long id, @NotNull @Positive Long bu, @NotEmpty String name, @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*$") @Size(max = 128) String shortname, @NotNull String bugzilla, @NotNull String platforms, @NotNull Set<Release> releases, @NotNull Boolean canceled, @NotNull Boolean published, @NotNull String description, @NotNull @Positive Integer phase, @JsonProperty("not_maintained_since") @JsonFormat(pattern = "yyyy-MM-dd") LocalDate notMaintainedSince, @JsonProperty("is_project_bool") @NotNull Boolean isProjectBool, @JsonProperty("product_group_name") String productGroupName, @JsonProperty("bu_name") @NotEmpty String buName, @JsonProperty("bu_shortname") @NotEmpty String buShortname) {
+public record Product(@NotNull @Positive Long id, @NotNull @Positive Long bu, @NotEmpty String name,
+        @NotEmpty @Pattern(regexp = "^[a-zA-Z1-9]+[\\w.-]*$") @Size(max = 128) String shortname,
+        @NotNull String bugzilla, @NotNull String platforms, @NotNull Set<Release> releases, @NotNull Boolean canceled,
+        @NotNull Boolean published, @NotNull String description, @NotNull @Positive Integer phase,
+        @JsonProperty("not_maintained_since") @JsonFormat(pattern = "yyyy-MM-dd") LocalDate notMaintainedSince,
+        @JsonProperty("is_project_bool") @NotNull Boolean isProjectBool,
+        @JsonProperty("product_group_name") String productGroupName, @JsonProperty("bu_name") @NotEmpty String buName,
+        @JsonProperty("bu_shortname") @NotEmpty String buShortname) {
 }
