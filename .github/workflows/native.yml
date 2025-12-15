@@ -62,7 +62,7 @@ jobs:
         run: |
           mvn -B -e -V -DskipTests -Dnative package
       - name: Upload binary
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: pp-integrator-${{ matrix.os }}
           path: |
