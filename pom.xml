@@ -65,7 +65,7 @@
     <version.com.github.ekryd.sortpom>4.0.0</version.com.github.ekryd.sortpom>
     <version.com.github.spotbugs>4.9.8.2</version.com.github.spotbugs>
     <version.com.mycila>5.0.0</version.com.mycila>
-    <version.com.puppycrawl.tools>12.3.0</version.com.puppycrawl.tools>
+    <version.com.puppycrawl.tools>13.0.0</version.com.puppycrawl.tools>
     <version.io.github.git-commit-id>9.0.2</version.io.github.git-commit-id>
     <version.io.quarkus>3.30.6</version.io.quarkus>
     <version.net.revelc.code.formatter.formatter-maven-plugin>2.29.0</version.net.revelc.code.formatter.formatter-maven-plugin>
