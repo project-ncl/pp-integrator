@@ -17,18 +17,17 @@ package org.jboss.pnc.ppitegrator.rest;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.MediaType.TEXT_PLAIN;
-import static org.eclipse.microprofile.metrics.MetricUnits.MILLISECONDS;
 import static org.eclipse.microprofile.openapi.annotations.enums.SchemaType.OBJECT;
 import static org.eclipse.microprofile.openapi.annotations.enums.SchemaType.STRING;
 
-import org.eclipse.microprofile.metrics.annotation.Counted;
-import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.resteasy.reactive.RestQuery;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import io.quarkus.cache.CacheResult;
 import jakarta.annotation.security.PermitAll;
 import jakarta.validation.constraints.NotEmpty;
@@ -50,11 +49,8 @@ public interface PhaseService {
             responseCode = "404",
             description = "Did not find exactly one result.",
             content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = ErrorMessage.class)))
-    @Counted(name = "getProductPhaseCount", description = "How many product phase calls have been performed.")
-    @Timed(
-            name = "getProductPhaseTimer",
-            description = "How long it takes to get the product phase.",
-            unit = MILLISECONDS)
+    @Counted(value = "getProductPhaseCount", description = "How many product phase calls have been performed.")
+    @Timed(value = "getProductPhaseTimer", description = "How long it takes to get the product phase.")
     @CacheResult(cacheName = "phases-products")
     @GET
     @Path("products/")
@@ -76,11 +72,8 @@ public interface PhaseService {
             content = @Content(
                     mediaType = APPLICATION_JSON,
                     schema = @Schema(type = OBJECT, implementation = ErrorMessage.class)))
-    @Counted(name = "getReleasePhaseCount", description = "How many release phase calls have been performed.")
-    @Timed(
-            name = "getReleasePhaseTimer",
-            description = "How long it takes to get the release phase.",
-            unit = MILLISECONDS)
+    @Counted(value = "getReleasePhaseCount", description = "How many release phase calls have been performed.")
+    @Timed(value = "getReleasePhaseTimer", description = "How long it takes to get the release phase.")
     @CacheResult(cacheName = "phases-releases")
     @GET
     @Path("releases/")
